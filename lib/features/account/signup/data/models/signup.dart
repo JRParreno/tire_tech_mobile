@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 class Signup {
   final String firstName;
   final String lastName;
@@ -9,6 +6,7 @@ class Signup {
   final String completeAddress;
   final String password;
   final String confirmPassword;
+  final String gender;
 
   Signup({
     required this.firstName,
@@ -18,6 +16,7 @@ class Signup {
     required this.completeAddress,
     required this.password,
     required this.confirmPassword,
+    required this.gender,
   });
 
   Signup copyWith({
@@ -28,6 +27,7 @@ class Signup {
     String? completeAddress,
     String? password,
     String? confirmPassword,
+    String? gender,
   }) {
     return Signup(
       firstName: firstName ?? this.firstName,
@@ -37,41 +37,8 @@ class Signup {
       completeAddress: completeAddress ?? this.completeAddress,
       password: password ?? this.password,
       confirmPassword: confirmPassword ?? this.confirmPassword,
+      gender: gender ?? this.gender,
     );
-  }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'firstName': firstName,
-      'lastName': lastName,
-      'email': email,
-      'mobileNumber': mobileNumber,
-      'completeAddress': completeAddress,
-      'password': password,
-      'confirmPassword': confirmPassword,
-    };
-  }
-
-  factory Signup.fromMap(Map<String, dynamic> map) {
-    return Signup(
-      firstName: map['firstName'] as String,
-      lastName: map['lastName'] as String,
-      email: map['email'] as String,
-      mobileNumber: map['mobileNumber'] as String,
-      completeAddress: map['completeAddress'] as String,
-      password: map['password'] as String,
-      confirmPassword: map['confirmPassword'] as String,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory Signup.fromJson(String source) =>
-      Signup.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() {
-    return 'Signup(firstName: $firstName, lastName: $lastName, email: $email, mobileNumber: $mobileNumber, completeAddress: $completeAddress, password: $password, confirmPassword: $confirmPassword)';
   }
 
   @override
@@ -84,6 +51,7 @@ class Signup {
         other.mobileNumber == mobileNumber &&
         other.completeAddress == completeAddress &&
         other.password == password &&
+        other.gender == gender &&
         other.confirmPassword == confirmPassword;
   }
 
@@ -95,6 +63,7 @@ class Signup {
         mobileNumber.hashCode ^
         completeAddress.hashCode ^
         password.hashCode ^
+        gender.hashCode ^
         confirmPassword.hashCode;
   }
 }

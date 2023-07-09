@@ -4,29 +4,6 @@ import 'package:tire_tech_mobile/core/utils/size_config.dart';
 import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
 class CustomTextField extends StatefulWidget {
-  final String labelText;
-  final TextEditingController textController;
-  final bool focus;
-  final int? maxLength;
-  final String? parametersValidate;
-  final AutovalidateMode? mode;
-  final bool readOnly;
-  final TextInputType? keyboardType;
-  final TextInputAction? textInputAction;
-  final int? minLines;
-  final int? maxLines;
-  final Function(String)? onChanged;
-  final String? errorText;
-  final Function()? onTap;
-  final Widget? suffixIcon;
-  final List<TextInputFormatter>? inputFormatters;
-  final EdgeInsetsGeometry? padding;
-  final String? helpText;
-  final String? hintText;
-  final FormFieldValidator<String>? validators;
-  final bool obscureText;
-  final FocusNode? focusNode;
-
   const CustomTextField({
     super.key,
     required this.labelText,
@@ -52,6 +29,29 @@ class CustomTextField extends StatefulWidget {
     this.obscureText = false,
     this.focusNode,
   });
+
+  final String labelText;
+  final TextEditingController textController;
+  final bool focus;
+  final int? maxLength;
+  final String? parametersValidate;
+  final AutovalidateMode? mode;
+  final bool readOnly;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final int? minLines;
+  final int? maxLines;
+  final Function(String)? onChanged;
+  final String? errorText;
+  final Function()? onTap;
+  final Widget? suffixIcon;
+  final List<TextInputFormatter>? inputFormatters;
+  final EdgeInsetsGeometry? padding;
+  final String? helpText;
+  final String? hintText;
+  final FormFieldValidator<String>? validators;
+  final bool obscureText;
+  final FocusNode? focusNode;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();

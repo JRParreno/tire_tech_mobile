@@ -1,29 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tire_tech_mobile/core/common_widget/common_bottomsheet.dart';
+import 'package:tire_tech_mobile/features/account/signup/presentation/widgets/gender_select_widget.dart';
 
 import '../../../../../core/common_widget/common_widget.dart';
 
 class SignupForm extends StatelessWidget {
-  final TextEditingController emailCtrl;
-  final TextEditingController passwordCtrl;
-  final TextEditingController confirmPasswordCtrl;
-  final TextEditingController mobileNoCtrl;
-  final TextEditingController completeAddressCtrl;
-  final TextEditingController lastNameCtrl;
-  final TextEditingController firstNameCtrl;
-
-  final FocusNode passwordSignupFocus;
-  final FocusNode confirmPasswordFocus;
-
-  final GlobalKey<FormState> formKey;
-  final Widget suffixIcon;
-  final bool passwordVisible;
-  final Widget confirmSuffixIcon;
-  final bool confirmPasswordVisible;
-  final bool isCheck;
-  final Function(bool) onChangeCheckBox;
-
-  final VoidCallback onSubmit;
-
   const SignupForm({
     super.key,
     required this.emailCtrl,
@@ -39,11 +20,27 @@ class SignupForm extends StatelessWidget {
     required this.onSubmit,
     required this.confirmPasswordVisible,
     required this.confirmSuffixIcon,
-    required this.confirmPasswordFocus,
-    required this.passwordSignupFocus,
-    required this.onChangeCheckBox,
-    required this.isCheck,
+    required this.genderCtrl,
+    required this.onSelectGender,
   });
+
+  final TextEditingController emailCtrl;
+  final TextEditingController passwordCtrl;
+  final TextEditingController confirmPasswordCtrl;
+  final TextEditingController mobileNoCtrl;
+  final TextEditingController completeAddressCtrl;
+  final TextEditingController lastNameCtrl;
+  final TextEditingController firstNameCtrl;
+  final TextEditingController genderCtrl;
+  final Function(String value) onSelectGender;
+
+  final GlobalKey<FormState> formKey;
+  final Widget suffixIcon;
+  final bool passwordVisible;
+  final Widget confirmSuffixIcon;
+  final bool confirmPasswordVisible;
+
+  final VoidCallback onSubmit;
 
   String? regexTest({
     required RegExp regex,
@@ -90,6 +87,27 @@ class SignupForm extends StatelessWidget {
                 labelText: "Last Name",
                 padding: EdgeInsets.zero,
                 parametersValidate: 'required',
+              ),
+              const Divider(
+                height: 10,
+                color: Colors.transparent,
+              ),
+              CustomTextField(
+                textController: genderCtrl,
+                labelText: "Gender",
+                keyboardType: TextInputType.emailAddress,
+                padding: EdgeInsets.zero,
+                parametersValidate: 'required',
+                readOnly: true,
+                onTap: () => commonBottomSheetDialog(
+                  context: context,
+                  title: "Select Gender",
+                  container: GenderSelectWidget(
+                    onSelectGender: onSelectGender,
+                    selectedGender:
+                        genderCtrl.text.isNotEmpty ? genderCtrl.text : null,
+                  ),
+                ),
               ),
               const Divider(
                 height: 10,
@@ -144,7 +162,6 @@ class SignupForm extends StatelessWidget {
                 color: Colors.transparent,
               ),
               CustomTextField(
-                focusNode: passwordSignupFocus,
                 textController: passwordCtrl,
                 labelText: "Password",
                 padding: EdgeInsets.zero,
@@ -158,15 +175,13 @@ class SignupForm extends StatelessWidget {
               ),
               CustomTextField(
                 textController: confirmPasswordCtrl,
-                focusNode: confirmPasswordFocus,
                 labelText: "Confirm Password",
                 padding: EdgeInsets.zero,
                 parametersValidate: 'required',
                 suffixIcon: confirmSuffixIcon,
                 obscureText: confirmPasswordVisible,
                 validators: (value) {
-                  if (value != null &&
-                      value.isEmpty &&
+                  if (value != null && value.isEmpty ||
                       value != passwordCtrl.value.text) {
                     return "Password doesn't match";
                   }
@@ -177,25 +192,10 @@ class SignupForm extends StatelessWidget {
                 height: 10,
                 color: Colors.transparent,
               ),
-              Row(
-                children: [
-                  Checkbox(
-                      value: isCheck,
-                      onChanged: (value) {
-                        onChangeCheckBox(value ?? false);
-                      }),
-                  const Expanded(
-                    child: CustomText(
-                      text:
-                          "By creating you agree to the terms and Use and Privacy Policy",
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
           const Divider(
-            height: 30,
+            height: 15,
             color: Colors.transparent,
           ),
           Column(

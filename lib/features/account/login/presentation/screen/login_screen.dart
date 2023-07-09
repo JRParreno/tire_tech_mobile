@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tire_tech_mobile/core/bloc/profile/profile_bloc.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_dialog.dart';
 import 'package:tire_tech_mobile/core/common_widget/loader_dialog.dart';
+import 'package:tire_tech_mobile/core/config/app_constant.dart';
 import 'package:tire_tech_mobile/core/local_storage/local_storage.dart';
 import 'package:tire_tech_mobile/features/account/login/data/repositories/login_repository_impl.dart';
 import 'package:tire_tech_mobile/features/account/login/presentation/widgets/login_form.dart';
@@ -40,14 +42,52 @@ class _LoginScreenState extends State<LoginScreen> {
     // testSignupValues();
   }
 
-  void testLoginValues() {
-    emailCtrl.text = "jhonrhayparreno22@gmail.com";
-    passwordCtrl.text = "2020Rtutest@";
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: Container(
+          color: Colors.black,
+          child: Column(
+            children: [
+              Expanded(
+                child: Center(
+                  child: Assets.images.icon.image(
+                    height: 170,
+                    width: 170,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: height * .55,
+                child: LoginForm(
+                  emailController: emailCtrl,
+                  formKey: loginFormKey,
+                  passwordController: passwordCtrl,
+                  passwordVisible: _passwordVisible,
+                  onSubmit: handleLogin,
+                  suffixIcon: GestureDetector(
+                    onTap: handleOnChangePassVisible,
+                    child: Icon(!_passwordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void handleLogin() {
     if (loginFormKey.currentState!.validate()) {
-      LoaderDialog.show(context: context);
+      EasyLoading.show();
 
       LoginRepositoryImpl()
           .login(email: emailCtrl.value.text, password: passwordCtrl.value.text)
@@ -58,17 +98,23 @@ class _LoginScreenState extends State<LoginScreen> {
             '_refreshToken', value['data']['refresh_token']);
         handleGetProfile();
       }).catchError((onError) {
-        LoaderDialog.hide(context: context);
+        EasyLoading.dismiss();
+
         Future.delayed(const Duration(milliseconds: 500), () {
           CommonDialog.showMyDialog(
             context: context,
-            title: "FireGuard",
+            title: AppConstant.appName,
             body: "Invalid email or password",
             isError: true,
           );
         });
       });
     }
+  }
+
+  void testLoginValues() {
+    emailCtrl.text = "jhonrhayparreno22@gmail.com";
+    passwordCtrl.text = "2020Rtutest@";
   }
 
   void handleGetProfile() async {
@@ -111,48 +157,5 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _passwordVisible = !_passwordVisible;
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: SafeArea(
-        child: Container(
-          color: Colors.black,
-          child: Column(
-            children: [
-              Expanded(
-                child: Center(
-                  child: Assets.images.icon.image(
-                    height: 170,
-                    width: 170,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: height * .55,
-                child: LoginForm(
-                  emailController: emailCtrl,
-                  formKey: loginFormKey,
-                  passwordController: passwordCtrl,
-                  passwordVisible: _passwordVisible,
-                  onSubmit: () {},
-                  suffixIcon: GestureDetector(
-                    onTap: handleOnChangePassVisible,
-                    child: Icon(!_passwordVisible
-                        ? Icons.visibility
-                        : Icons.visibility_off),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

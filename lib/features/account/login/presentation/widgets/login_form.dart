@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tire_tech_mobile/features/account/signup/presentation/screens/sign_up_screen.dart';
 import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
 import '../../../../../core/common_widget/common_widget.dart';
@@ -118,20 +119,23 @@ class LoginForm extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0),
                   child: Column(
-                    children: const [
-                      CustomTextLink(
+                    children: [
+                      const CustomTextLink(
                         text: "Forgot Password?",
                         style: TextStyle(
                           color: ColorName.placeHolder,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      CustomTextLink(
-                        text: "Signup!",
-                        style: TextStyle(
-                          color: ColorName.placeHolder,
+                      GestureDetector(
+                        onTap: () => handleNavigateSignup(context),
+                        child: const CustomTextLink(
+                          text: "Signup!",
+                          style: TextStyle(
+                            color: ColorName.placeHolder,
+                          ),
                         ),
                       )
                     ],
@@ -143,5 +147,9 @@ class LoginForm extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void handleNavigateSignup(BuildContext context) {
+    Navigator.of(context).pushNamed(SignUpScreen.routeName);
   }
 }
