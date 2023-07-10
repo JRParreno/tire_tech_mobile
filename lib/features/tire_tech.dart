@@ -10,6 +10,7 @@ import 'package:tire_tech_mobile/core/routes/app_route.dart';
 import 'package:tire_tech_mobile/features/account/profile/data/models/profile.dart';
 import 'package:tire_tech_mobile/features/account/profile/data/repositories/profile_repository_impl.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/bloc/upload_id/upload_id_bloc.dart';
+import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
 import 'package:tire_tech_mobile/features/onboarding/onboarding_screen.dart';
 
 class TireTechApp extends StatefulWidget {
@@ -84,7 +85,7 @@ class _TireTechAppState extends State<TireTechApp> {
                 ),
                 onGenerateRoute: generateRoute,
                 home: state is ProfileLoaded && !state.profile!.isNewRegister
-                    ? Container()
+                    ? const SearchServicesScreen()
                     : const OnBoardingScreen(),
               );
             }),
