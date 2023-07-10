@@ -104,40 +104,28 @@ class _UpdateAccountScreenState extends State<UpdateAccountScreen> {
           child: Column(
             children: [
               if (profile != null) ...[
-                if (!profile.isVerified) ...[
-                  if (profile.frontIdPhoto != null) ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: CustomTextLink(
-                        text: "Please wait to verify your account",
-                        onTap: () {},
-                      ),
-                    ),
-                  ] else ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: CustomTextLink(
-                        text:
-                            "You account is not verified yet. click here to verify.",
-                        onTap: () async {
-                          // await PersistentNavBarNavigator.pushNewScreen(
-                          //   context,
-                          //   screen: const UploadIDScreen(),
-                          //   withNavBar:
-                          //       false, // OPTIONAL VALUE. True by default.
-                          //   pageTransitionAnimation:
-                          //       PageTransitionAnimation.cupertino,
-                          // ).whenComplete(() {
-                          //   setState(() {
-                          //     linkTitle =
-                          //         "You account is not verified yet. click here to verify.";
-                          //   });
-                          // });
-                        },
-                      ),
-                    ),
-                  ],
-                ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: CustomTextLink(
+                    text:
+                        "You account is not verified yet. click here to verify.",
+                    onTap: () async {
+                      // await PersistentNavBarNavigator.pushNewScreen(
+                      //   context,
+                      //   screen: const UploadIDScreen(),
+                      //   withNavBar:
+                      //       false, // OPTIONAL VALUE. True by default.
+                      //   pageTransitionAnimation:
+                      //       PageTransitionAnimation.cupertino,
+                      // ).whenComplete(() {
+                      //   setState(() {
+                      //     linkTitle =
+                      //         "You account is not verified yet. click here to verify.";
+                      //   });
+                      // });
+                    },
+                  ),
+                ),
               ],
               UpdateAccountForm(
                 completeAddressCtrl: completeAddressCtrl,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tire_tech_mobile/features/account/login/presentation/screen/login_screen.dart';
 import 'package:tire_tech_mobile/features/account/signup/presentation/screens/sign_up_screen.dart';
+import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
   return MaterialPageRoute(
@@ -11,6 +12,8 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           return const LoginScreen();
         case SignUpScreen.routeName:
           return const SignUpScreen();
+        case SearchServicesScreen.routeName:
+          return const SearchServicesScreen();
       }
 
       return const Scaffold(

@@ -83,7 +83,7 @@ class _TireTechAppState extends State<TireTechApp> {
                   primarySwatch: Colors.blue,
                 ),
                 onGenerateRoute: generateRoute,
-                home: state is ProfileLoaded
+                home: state is ProfileLoaded && !state.profile!.isNewRegister
                     ? Container()
                     : const OnBoardingScreen(),
               );

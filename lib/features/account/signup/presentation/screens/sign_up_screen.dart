@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:tire_tech_mobile/core/bloc/profile/profile_bloc.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_dialog.dart';
 import 'package:tire_tech_mobile/core/common_widget/custom_appbar.dart';
 import 'package:tire_tech_mobile/core/config/app_constant.dart';
+import 'package:tire_tech_mobile/core/local_storage/local_storage.dart';
+import 'package:tire_tech_mobile/features/account/login/data/repositories/login_repository_impl.dart';
+import 'package:tire_tech_mobile/features/account/profile/data/models/profile.dart';
+import 'package:tire_tech_mobile/features/account/profile/data/repositories/profile_repository_impl.dart';
 import 'package:tire_tech_mobile/features/account/signup/data/models/signup.dart';
 import 'package:tire_tech_mobile/features/account/signup/data/repositories/signup_repository_impl.dart';
 import 'package:tire_tech_mobile/features/account/signup/presentation/widgets/signup_form.dart';
+import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String routeName = '/signup';
@@ -134,7 +141,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         EasyLoading.dismiss();
 
         Future.delayed(const Duration(milliseconds: 500), () {
-          // Navigate homescreen
+          handleLogin(
+            email: emailSignupCtrl.text,
+            password: passwordSignupCtrl.text,
+          );
         });
       }).catchError((onError) {
         EasyLoading.dismiss();
@@ -148,5 +158,62 @@ class _SignUpScreenState extends State<SignUpScreen> {
         });
       });
     } else {}
+  }
+
+  void handleLogin({
+    required String email,
+    required String password,
+  }) {
+    EasyLoading.show();
+
+    LoginRepositoryImpl()
+        .login(email: email, password: password)
+        .then((value) async {
+      await LocalStorage.storeLocalStorage(
+          '_token', value['data']['access_token']);
+      await LocalStorage.storeLocalStorage(
+          '_refreshToken', value['data']['refresh_token']);
+      handleGetProfile();
+    }).catchError((onError) {
+      EasyLoading.dismiss();
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        CommonDialog.showMyDialog(
+          context: context,
+          title: AppConstant.appName,
+          body: "Invalid email or password",
+          isError: true,
+        );
+      });
+    });
+  }
+
+  void handleGetProfile() async {
+    await ProfileRepositoryImpl().fetchProfile().then((profile) async {
+      handleSetProfileBloc(profile);
+      EasyLoading.dismiss();
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          SearchServicesScreen.routeName,
+          (route) => false,
+        );
+      });
+    }).catchError((onError) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        CommonDialog.showMyDialog(
+          context: context,
+          title: AppConstant.appName,
+          body: onError['data']['error_message'],
+          isError: true,
+        );
+      });
+    });
+  }
+
+  void handleSetProfileBloc(Profile profile) {
+    BlocProvider.of<ProfileBloc>(context).add(
+      SetProfileEvent(profile: profile),
+    );
   }
 }

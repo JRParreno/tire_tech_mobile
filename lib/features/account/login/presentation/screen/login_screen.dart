@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tire_tech_mobile/core/bloc/profile/profile_bloc.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_dialog.dart';
-import 'package:tire_tech_mobile/core/common_widget/loader_dialog.dart';
 import 'package:tire_tech_mobile/core/config/app_constant.dart';
 import 'package:tire_tech_mobile/core/local_storage/local_storage.dart';
 import 'package:tire_tech_mobile/features/account/login/data/repositories/login_repository_impl.dart';
 import 'package:tire_tech_mobile/features/account/login/presentation/widgets/login_form.dart';
 import 'package:tire_tech_mobile/features/account/profile/data/models/profile.dart';
 import 'package:tire_tech_mobile/features/account/profile/data/repositories/profile_repository_impl.dart';
+import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
 import 'package:tire_tech_mobile/gen/assets.gen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -53,7 +53,8 @@ class _LoginScreenState extends State<LoginScreen> {
           color: Colors.black,
           child: Column(
             children: [
-              Expanded(
+              SizedBox(
+                height: height * .30,
                 child: Center(
                   child: Assets.images.icon.image(
                     height: 170,
@@ -62,8 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: height * .55,
+              Expanded(
                 child: LoginForm(
                   emailController: emailCtrl,
                   formKey: loginFormKey,
@@ -119,32 +119,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void handleGetProfile() async {
     await ProfileRepositoryImpl().fetchProfile().then((profile) async {
-      if (profile.otpVerified) {
-        await LocalStorage.storeLocalStorage('_user', profile.toJson());
+      EasyLoading.dismiss();
 
-        handleSetProfileBloc(profile);
-        Future.delayed(const Duration(milliseconds: 500), () {
-          // Navigator.of(context).pushNamedAndRemoveUntil(
-          //   HomeScreen.routeName,
-          //   (route) => false,
-          // );
-        });
-      } else {
-        Future.delayed(const Duration(milliseconds: 500), () {
-          // Navigate OTP screen
-        });
-      }
+      handleSetProfileBloc(profile);
+      await LocalStorage.storeLocalStorage('_user', profile.toJson());
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          SearchServicesScreen.routeName,
+          (route) => false,
+        );
+      });
     }).catchError((onError) {
+      EasyLoading.dismiss();
       Future.delayed(const Duration(milliseconds: 500), () {
         CommonDialog.showMyDialog(
           context: context,
-          title: "FireGuard",
+          title: AppConstant.appName,
           body: onError['data']['error_message'],
           isError: true,
         );
       });
     });
-    LoaderDialog.hide(context: context);
   }
 
   void handleSetProfileBloc(Profile profile) {
