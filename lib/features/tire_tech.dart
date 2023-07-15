@@ -71,7 +71,11 @@ class _TireTechAppState extends State<TireTechApp> {
       ],
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (ctx, state) {
-          initialization(ctx);
+          final isProfileLoaded =
+              state is ProfileLoaded && !state.profile!.isNewRegister;
+          if (isProfileLoaded) {
+            initialization(ctx);
+          }
 
           return ScreenUtilInit(
             designSize: const Size(375, 812),
@@ -84,7 +88,7 @@ class _TireTechAppState extends State<TireTechApp> {
                   primarySwatch: Colors.blue,
                 ),
                 onGenerateRoute: generateRoute,
-                home: state is ProfileLoaded && !state.profile!.isNewRegister
+                home: isProfileLoaded
                     ? const SearchServicesScreen()
                     : const OnBoardingScreen(),
               );

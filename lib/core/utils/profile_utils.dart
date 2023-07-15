@@ -5,6 +5,7 @@ import 'package:tire_tech_mobile/core/bloc/profile/profile_bloc.dart';
 import 'package:tire_tech_mobile/core/common_widget/custom_text.dart';
 import 'package:tire_tech_mobile/core/config/app_constant.dart';
 import 'package:tire_tech_mobile/core/local_storage/local_storage.dart';
+import 'package:tire_tech_mobile/features/account/login/presentation/screen/login_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/data/models/profile.dart';
 
 class ProfileUtils {
@@ -27,12 +28,15 @@ class ProfileUtils {
             onPressed: () async {
               await LocalStorage.deleteLocalStorage('_user');
               Future.delayed(const Duration(milliseconds: 500), () {
-                // BlocProvider.of<ProfileBloc>(context)
-                //     .add(SetProfileLogoutEvent());
+                BlocProvider.of<ProfileBloc>(context)
+                    .add(SetProfileLogoutEvent());
                 context.read<ProfileBloc>().add(SetProfileLogoutEvent());
               });
               Future.delayed(const Duration(milliseconds: 500), () {
-                // navigate logout
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  LoginScreen.routeName,
+                  (route) => false,
+                );
               });
             }),
         TextButton(

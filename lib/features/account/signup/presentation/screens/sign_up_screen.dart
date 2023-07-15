@@ -104,7 +104,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     emailSignupCtrl.text = 'juandelacruz@gmail.com';
     passwordSignupCtrl.text = '2020Rtutest@';
     mobileNoCtrl.text = '09321764095';
-    confirmPasswordCtrl.text = '2021Rtutest@';
+    confirmPasswordCtrl.text = '2020Rtutest@';
     completeAddressCtrl.text = '1977 FB HARRISON PASAY';
     firstNameCtrl.text = 'juan';
     lastNameCtrl.text = 'dela cruz';
@@ -194,9 +194,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       EasyLoading.dismiss();
 
       Future.delayed(const Duration(milliseconds: 500), () {
-        Navigator.of(context).pushNamedAndRemoveUntil(
+        Navigator.of(context).pushNamed(
           SearchServicesScreen.routeName,
-          (route) => false,
         );
       });
     }).catchError((onError) {
@@ -213,7 +212,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void handleSetProfileBloc(Profile profile) {
     BlocProvider.of<ProfileBloc>(context).add(
-      SetProfileEvent(profile: profile),
+      SetProfileEvent(profile: profile.copyWith(isNewRegister: true)),
     );
   }
 }

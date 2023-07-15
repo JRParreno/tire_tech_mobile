@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class ServiceOffer extends Equatable {
-  static ServiceOffer empty = const ServiceOffer(pk: '', serviceName: '');
+  static ServiceOffer empty = const ServiceOffer(pk: -1, serviceName: '');
 
   const ServiceOffer({
     required this.pk,
     required this.serviceName,
   });
 
-  final String pk;
+  final int pk;
   final String serviceName;
 
   @override
@@ -31,7 +31,7 @@ class ServiceOffer extends Equatable {
   factory ServiceOffer.fromMap(Map<String, dynamic> map) {
     return ServiceOffer(
       pk: map['pk'] ?? '',
-      serviceName: map['service-name'] ?? '',
+      serviceName: map['service_name'] ?? '',
     );
   }
 
@@ -41,7 +41,7 @@ class ServiceOffer extends Equatable {
       ServiceOffer.fromMap(json.decode(source));
 
   ServiceOffer copyWith({
-    String? pk,
+    int? pk,
     String? serviceName,
   }) {
     return ServiceOffer(

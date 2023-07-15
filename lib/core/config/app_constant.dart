@@ -17,10 +17,10 @@ class AppConstant {
     begin: Alignment(-1.0, -0.3),
     end: Alignment(1.0, 0.3),
   );
-  static const clientId = 'oOKyNfQxOKjKCLT8j3iZCAXwn0fylJP7O5oXbLei';
+  static const clientId = 'zpjTOiQJyWrevPe2U6yZ9wwmhpB9ee7QHMxhuyvD';
   static const clientSecret =
-      'mj7LOhuKy8gGPbpMzW5s1QzRWwilSXExJTEemgoYqyU7E5Gsx8IAZLgc8o5Cymt2Uyxk5eEb2wl1pH5TYYZNJSN2gy1t5eD6sExUUeEGAJrfjtIXmoFPFHJKOdobeOHj';
-  static const serverUrl = 'http://192.168.1.8:8000';
+      'Fn50XVhsS1FnAmxGv7MB8lCP2hPf4s1SVbgW5B2Z7452AeXcN9gWL1tq5DwqWGa3lbX7azGnjZA4BYOcqivE04WkraGRup4HAKettXURzU8iD7XGRoMaD04wFjebNGyR';
+  static const serverUrl = 'http://192.168.1.104:8000';
   static const apiUrl = '$serverUrl/api';
   static const apiUser = '$serverUrl/user';
   static const appName = 'Tire Tech';
