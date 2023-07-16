@@ -36,6 +36,8 @@ class _OnboadingScreenState extends State<OnBoardingScreen> {
       child: Scaffold(
         body: SafeArea(
           child: Container(
+            width: double.infinity,
+            height: double.infinity,
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
             decoration: const BoxDecoration(
                 image: DecorationImage(

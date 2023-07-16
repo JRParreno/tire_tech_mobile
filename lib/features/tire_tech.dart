@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tire_tech_mobile/core/bloc/common/common_event.dart';
+import 'package:tire_tech_mobile/core/bloc/common/common_state.dart';
 import 'package:tire_tech_mobile/core/bloc/profile/profile_bloc.dart';
 import 'package:tire_tech_mobile/core/local_storage/local_storage.dart';
 import 'package:tire_tech_mobile/core/routes/app_route.dart';
@@ -73,7 +74,7 @@ class _TireTechAppState extends State<TireTechApp> {
         builder: (ctx, state) {
           final isProfileLoaded =
               state is ProfileLoaded && !state.profile!.isNewRegister;
-          if (isProfileLoaded) {
+          if (isProfileLoaded || state is InitialState) {
             initialization(ctx);
           }
 
