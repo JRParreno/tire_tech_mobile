@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
+import 'package:tire_tech_mobile/features/account/profile/presentation/screens/profile_screen.dart';
 import 'package:tire_tech_mobile/features/home/search_services/data/models/service_offer.dart';
 import 'package:tire_tech_mobile/features/home/search_services/data/repositories/service_offer_repository_impl.dart';
 import 'package:tire_tech_mobile/features/home/search_services/presentation/widget/search_bar_widget.dart';
-import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop_service.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/screen/search_shops_screen.dart';
 
 class SearchServicesScreen extends StatefulWidget {
@@ -69,8 +69,11 @@ class _SearchServicesScreenState extends State<SearchServicesScreen> {
                             ),
                           ],
                         ),
-                        child: const Center(
-                          child: Icon(Icons.person),
+                        child: Center(
+                          child: GestureDetector(
+                              onTap: () => Navigator.of(context)
+                                  .pushNamed(ProfileScreen.routeName),
+                              child: const Icon(Icons.person)),
                         ),
                       ),
                       Flexible(

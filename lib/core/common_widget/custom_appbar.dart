@@ -8,6 +8,7 @@ PreferredSizeWidget buildAppBar({
   String? title,
   Widget? leading,
   bool showBackBtn = false,
+  List<Widget>? actions,
 }) {
   return AppBar(
     toolbarHeight: kToolbarHeight,
@@ -36,5 +37,6 @@ PreferredSizeWidget buildAppBar({
         letterSpacing: .3,
       ),
     ),
+    actions: actions,
   );
 }

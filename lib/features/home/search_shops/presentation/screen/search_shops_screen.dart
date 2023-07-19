@@ -12,6 +12,7 @@ import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_header.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_information.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_list_draggable.dart';
+import 'package:tire_tech_mobile/features/menu/presentation/screen/menu_screen.dart';
 
 class SearchShopsArgs {
   const SearchShopsArgs({
@@ -61,7 +62,22 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
           ),
         ),
       child: Scaffold(
-        appBar: buildAppBar(context: context),
+        appBar: buildAppBar(
+          context: context,
+          leading: GestureDetector(
+            onTap: () => Navigator.of(context).pop(false),
+            child: const Icon(Icons.search),
+          ),
+          actions: [
+            GestureDetector(
+              onTap: handleNavigateMenu,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Icon(Icons.menu),
+              ),
+            )
+          ],
+        ),
         body: BlocBuilder<ShopBloc, ShopState>(
           builder: (context, state) {
             if (state is LoadingState) {
@@ -72,10 +88,6 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
 
             if (state is ShopLoaded) {
               final markers = shopToListMarker(state.shops);
-
-              Future.delayed(const Duration(seconds: 1), () {
-                handleShowShopListBottomSheet(state.shops);
-              });
 
               final CameraPosition cameraPosition = state.shops.isNotEmpty
                   ? CameraPosition(
@@ -203,5 +215,9 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
     Future.delayed(const Duration(milliseconds: 500), () {
       handleShowShopBottomSheet(shop: shop, shops: shops);
     });
+  }
+
+  void handleNavigateMenu() {
+    Navigator.of(context).pushNamed(MenuScreen.routeName);
   }
 }
