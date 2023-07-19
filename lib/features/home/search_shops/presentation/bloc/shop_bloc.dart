@@ -20,13 +20,31 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
 
   Future<void> _searchShops(
       SearchShopEvent event, Emitter<ShopState> emit) async {
+    final categoryQuery = event.categoryQuery;
+    final serviceQuery = event.serviceQuery;
+
     emit(const LoadingState());
 
-    try {
-      final shops = await SearchShopsRepositoryImpl().searchShop(event.query);
-      emit(ShopLoaded(shops: shops));
-    } catch (err) {
-      emit(ErrorState(err.toString()));
+    if (categoryQuery != null) {
+      try {
+        final shops =
+            await SearchShopsRepositoryImpl().searchShop(categoryQuery);
+        return emit(ShopLoaded(shops: shops));
+      } catch (err) {
+        return emit(ErrorState(err.toString()));
+      }
     }
+
+    if (serviceQuery != null) {
+      try {
+        final shops =
+            await SearchShopsRepositoryImpl().searchShopByService(serviceQuery);
+        return emit(ShopLoaded(shops: shops));
+      } catch (err) {
+        return emit(ErrorState(err.toString()));
+      }
+    }
+
+    emit(const InitialState());
   }
 }

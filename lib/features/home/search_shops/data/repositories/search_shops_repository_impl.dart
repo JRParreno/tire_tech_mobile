@@ -26,4 +26,24 @@ class SearchShopsRepositoryImpl extends SearchShopsRepository {
       throw error!;
     });
   }
+
+  @override
+  Future<List<Shop>> searchShopByService(String query) async {
+    String url = '${AppConstant.serverUrl}/api/find-shop?service_pk=$query';
+
+    return await ApiInterceptor.apiInstance().get(url).then((value) {
+      final results = value.data['results'] as List<dynamic>;
+      final List<Shop> shops = [];
+
+      if (results.isNotEmpty) {
+        final data = results.map((e) => Shop.fromMap(e)).toList();
+        return data;
+      }
+      return shops;
+    }).catchError((error) {
+      throw error;
+    }).onError((error, stackTrace) {
+      throw error!;
+    });
+  }
 }

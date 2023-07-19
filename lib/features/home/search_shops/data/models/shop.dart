@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop_category.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop_product.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop_service.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/data/models/vehicle_types.dart';
 
 class Shop extends Equatable {
@@ -19,6 +21,12 @@ class Shop extends Equatable {
     this.specialOffer,
     required this.shopCategory,
     required this.vehicleTypes,
+    required this.products,
+    required this.services,
+    this.productDescription,
+    this.serviceDescription,
+    this.walkinProductDescription,
+    this.walkinServiceDescription,
   });
 
   final int pk;
@@ -33,6 +41,12 @@ class Shop extends Equatable {
   final String? specialOffer;
   final List<ShopCategory> shopCategory;
   final List<VehicleTypes> vehicleTypes;
+  final String? serviceDescription;
+  final String? walkinServiceDescription;
+  final List<ShopService> services;
+  final String? productDescription;
+  final String? walkinProductDescription;
+  final List<ShopProduct> products;
 
   @override
   List<Object?> get props {
@@ -49,30 +63,13 @@ class Shop extends Equatable {
       specialOffer,
       shopCategory,
       vehicleTypes,
+      serviceDescription,
+      walkinServiceDescription,
+      services,
+      productDescription,
+      walkinProductDescription,
+      products,
     ];
-  }
-
-  Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-
-    result.addAll({'pk': pk});
-    result.addAll({'shopName': shopName});
-    result.addAll({'contactNumber': contactNumber});
-    result.addAll({'openTime': openTime});
-    result.addAll({'closeTime': closeTime});
-    result.addAll({'addressName': addressName});
-    result.addAll({'longitude': longitude});
-    result.addAll({'latitude': latitude});
-    result.addAll({'shopPhotos': shopPhotos});
-    if (specialOffer != null) {
-      result.addAll({'specialOffer': specialOffer});
-    }
-    result
-        .addAll({'shopCategory': shopCategory.map((x) => x.toMap()).toList()});
-    result
-        .addAll({'vehicleTypes': vehicleTypes.map((x) => x.toMap()).toList()});
-
-    return result;
   }
 
   factory Shop.fromMap(Map<String, dynamic> map) {
@@ -91,10 +88,16 @@ class Shop extends Equatable {
           map['shop_category']?.map((x) => ShopCategory.fromMap(x))),
       vehicleTypes: List<VehicleTypes>.from(
           map['vehicle_types']?.map((x) => VehicleTypes.fromMap(x))),
+      products: List<ShopProduct>.from(
+          map['products']?.map((x) => ShopProduct.fromMap(x))),
+      services: List<ShopService>.from(
+          map['services']?.map((x) => ShopService.fromMap(x))),
+      serviceDescription: map['service_description'] ?? '',
+      walkinServiceDescription: map['walk_in_service_description'] ?? '',
+      productDescription: map['product_description'] ?? '',
+      walkinProductDescription: map['walk_in_product_description'] ?? '',
     );
   }
-
-  String toJson() => json.encode(toMap());
 
   factory Shop.fromJson(String source) => Shop.fromMap(json.decode(source));
 }

@@ -55,6 +55,7 @@ dependencies:
   flutter_gen_runner: 5.1.0+1
   ndialog: ^4.3.0
   flutter_native_splash: ^2.2.18
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:

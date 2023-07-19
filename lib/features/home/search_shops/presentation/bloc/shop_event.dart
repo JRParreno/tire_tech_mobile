@@ -4,16 +4,17 @@ abstract class ShopEvent extends Equatable {
   const ShopEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class SearchShopEvent extends ShopEvent {
   const SearchShopEvent({
-    required this.query,
+    this.categoryQuery,
+    this.serviceQuery,
   });
 
-  final String query;
-
+  final String? categoryQuery;
+  final String? serviceQuery;
   @override
-  List<Object> get props => [query];
+  List<Object?> get props => [categoryQuery, serviceQuery];
 }

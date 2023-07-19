@@ -3,6 +3,7 @@ import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/features/home/search_services/data/models/service_offer.dart';
 import 'package:tire_tech_mobile/features/home/search_services/data/repositories/service_offer_repository_impl.dart';
 import 'package:tire_tech_mobile/features/home/search_services/presentation/widget/search_bar_widget.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop_service.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/screen/search_shops_screen.dart';
 
 class SearchServicesScreen extends StatefulWidget {
@@ -116,7 +117,11 @@ class _SearchServicesScreenState extends State<SearchServicesScreen> {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 10),
                               child: CustomBtn(
+                                onTap: () => handleSearchService(
+                                  serviceOffer,
+                                ),
                                 label: serviceOffer.serviceName,
+                                backgroundColor: const Color(0x008F8E8E),
                                 style: const TextStyle(
                                   fontSize: 17,
                                   color: Colors.black,
@@ -155,7 +160,16 @@ class _SearchServicesScreenState extends State<SearchServicesScreen> {
   void handleSearch() {
     Navigator.of(context).pushNamed(
       SearchShopsScreen.routeName,
-      arguments: SearchShopsArgs(query: queryCtrl.text),
+      arguments: SearchShopsArgs(categoryQuery: queryCtrl.text),
+    );
+  }
+
+  void handleSearchService(ServiceOffer serviceOffer) {
+    Navigator.of(context).pushNamed(
+      SearchShopsScreen.routeName,
+      arguments: SearchShopsArgs(
+          serviceQuery: serviceOffer.pk.toString(),
+          serviceName: serviceOffer.serviceName),
     );
   }
 }
