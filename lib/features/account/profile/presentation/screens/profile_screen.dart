@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/core/common_widget/custom_appbar.dart';
 import 'package:tire_tech_mobile/core/utils/profile_utils.dart';
+import 'package:tire_tech_mobile/features/account/profile/presentation/screens/update_account_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/widgets/review_report/review_report_form.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -184,5 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void handleNavigateEditProfile() {}
+  void handleNavigateEditProfile() {
+    Navigator.of(context).pushNamed(UpdateAccountScreen.routeName);
+  }
 }

@@ -7,6 +7,8 @@ class UpdateAccountForm extends StatelessWidget {
   final TextEditingController completeAddressCtrl;
   final TextEditingController lastNameCtrl;
   final TextEditingController firstNameCtrl;
+  final String gender;
+  final Function(String value) onSelect;
 
   final GlobalKey<FormState> formKey;
 
@@ -21,6 +23,8 @@ class UpdateAccountForm extends StatelessWidget {
     required this.lastNameCtrl,
     required this.formKey,
     required this.onSubmit,
+    required this.gender,
+    required this.onSelect,
   });
 
   @override
@@ -82,7 +86,7 @@ class UpdateAccountForm extends StatelessWidget {
               CustomTextField(
                 textController: mobileNoCtrl,
                 labelText: "Mobile number",
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.number,
                 padding: EdgeInsets.zero,
                 parametersValidate: 'required',
                 validators: (value) {
@@ -108,6 +112,45 @@ class UpdateAccountForm extends StatelessWidget {
                 height: 10,
                 color: Colors.transparent,
               ),
+              SizedBox(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: CustomText(text: 'Gender'),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: RadioListTile(
+                            title: const Text("Male"),
+                            value: 'M',
+                            groupValue: gender,
+                            onChanged: (value) {
+                              onSelect('M');
+                            },
+                            selected: gender == 'M',
+                            contentPadding: EdgeInsets.zero,
+                          ),
+                        ),
+                        Expanded(
+                          child: RadioListTile(
+                            title: const Text("Female"),
+                            value: 'F',
+                            groupValue: gender,
+                            onChanged: (value) {
+                              onSelect('F');
+                            },
+                            selected: gender == 'F',
+                            contentPadding: EdgeInsets.zero,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
           const Divider(

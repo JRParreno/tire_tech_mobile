@@ -8,6 +8,7 @@ abstract class ProfileRepository {
     required String email,
     required String address,
     required String contactNumber,
+    required String gender,
   });
   Future<void> setPushToken(String token);
   Future<void> changePassword({

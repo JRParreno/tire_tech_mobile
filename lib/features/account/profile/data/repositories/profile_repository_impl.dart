@@ -29,13 +29,19 @@ class ProfileRepositoryImpl extends ProfileRepository {
     required String email,
     required String address,
     required String contactNumber,
+    required String gender,
   }) async {
     const String url = '${AppConstant.apiUrl}/profile';
 
     final data = {
-      "user": {"email": email, "first_name": firstName, "last_name": lastName},
+      "user": {
+        "email": email,
+        "first_name": firstName,
+        "last_name": lastName,
+      },
       "address": address,
-      "contact_number": contactNumber
+      "contact_number": contactNumber,
+      "gender": gender,
     };
 
     return await ApiInterceptor.apiInstance()

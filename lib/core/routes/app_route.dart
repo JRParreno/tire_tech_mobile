@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tire_tech_mobile/features/account/login/presentation/screen/login_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/screens/profile_screen.dart';
+import 'package:tire_tech_mobile/features/account/profile/presentation/screens/update_account_screen.dart';
 import 'package:tire_tech_mobile/features/account/signup/presentation/screens/sign_up_screen.dart';
 import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/screen/search_shops_screen.dart';
@@ -26,6 +27,8 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           return const MenuScreen();
         case ProfileScreen.routeName:
           return const ProfileScreen();
+        case UpdateAccountScreen.routeName:
+          return const UpdateAccountScreen();
       }
 
       return const Scaffold(

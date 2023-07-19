@@ -6,7 +6,6 @@ import 'package:ndialog/ndialog.dart';
 import 'package:tire_tech_mobile/core/bloc/profile/profile_bloc.dart';
 import 'package:tire_tech_mobile/core/common_widget/custom_appbar.dart';
 import 'package:tire_tech_mobile/core/common_widget/custom_text.dart';
-import 'package:tire_tech_mobile/core/common_widget/custom_text_link.dart';
 import 'package:tire_tech_mobile/core/config/app_constant.dart';
 import 'package:tire_tech_mobile/core/utils/profile_utils.dart';
 import 'package:tire_tech_mobile/features/account/profile/data/repositories/profile_repository_impl.dart';
@@ -29,6 +28,7 @@ class _UpdateAccountScreenState extends State<UpdateAccountScreen> {
   final TextEditingController firstNameCtrl = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String linkTitle = "You account is not verified yet. click here to verify.";
+  String gender = '';
 
   @override
   void initState() {
@@ -48,7 +48,7 @@ class _UpdateAccountScreenState extends State<UpdateAccountScreen> {
   }
 
   void handleSubmit() {
-    if (formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate() && gender.isNotEmpty) {
       EasyLoading.show();
       ProfileRepositoryImpl()
           .updateProfile(
@@ -57,6 +57,7 @@ class _UpdateAccountScreenState extends State<UpdateAccountScreen> {
         email: emailCtrl.text,
         firstName: firstNameCtrl.text,
         lastName: lastNameCtrl.text,
+        gender: gender,
       )
           .then((value) {
         BlocProvider.of<ProfileBloc>(context)
@@ -103,30 +104,6 @@ class _UpdateAccountScreenState extends State<UpdateAccountScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              if (profile != null) ...[
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: CustomTextLink(
-                    text:
-                        "You account is not verified yet. click here to verify.",
-                    onTap: () async {
-                      // await PersistentNavBarNavigator.pushNewScreen(
-                      //   context,
-                      //   screen: const UploadIDScreen(),
-                      //   withNavBar:
-                      //       false, // OPTIONAL VALUE. True by default.
-                      //   pageTransitionAnimation:
-                      //       PageTransitionAnimation.cupertino,
-                      // ).whenComplete(() {
-                      //   setState(() {
-                      //     linkTitle =
-                      //         "You account is not verified yet. click here to verify.";
-                      //   });
-                      // });
-                    },
-                  ),
-                ),
-              ],
               UpdateAccountForm(
                 completeAddressCtrl: completeAddressCtrl,
                 emailCtrl: emailCtrl,
@@ -135,6 +112,12 @@ class _UpdateAccountScreenState extends State<UpdateAccountScreen> {
                 firstNameCtrl: firstNameCtrl,
                 formKey: formKey,
                 onSubmit: handleSubmit,
+                gender: gender.isNotEmpty ? gender : profile?.gender ?? '',
+                onSelect: (value) {
+                  setState(() {
+                    gender = value;
+                  });
+                },
               )
             ],
           ),
