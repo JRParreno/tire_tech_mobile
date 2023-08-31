@@ -1,5 +1,9 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
+import 'package:tire_tech_mobile/core/location/get_current_location.dart';
+import 'package:tire_tech_mobile/core/permission/app_permission.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/screens/profile_screen.dart';
 import 'package:tire_tech_mobile/features/home/search_services/data/models/service_offer.dart';
 import 'package:tire_tech_mobile/features/home/search_services/data/repositories/service_offer_repository_impl.dart';
@@ -160,19 +164,56 @@ class _SearchServicesScreenState extends State<SearchServicesScreen> {
     });
   }
 
-  void handleSearch() {
-    Navigator.of(context).pushNamed(
-      SearchShopsScreen.routeName,
-      arguments: SearchShopsArgs(categoryQuery: queryCtrl.text),
-    );
+  Future<void> handleSearch() async {
+    final locationPermGranted = await AppPermission.locationPermission();
+
+    if (locationPermGranted) {
+      EasyLoading.show();
+
+      final currentLocation = await getCurrentLocation();
+
+      EasyLoading.dismiss();
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushNamed(
+          SearchShopsScreen.routeName,
+          arguments: SearchShopsArgs(
+            categoryQuery: queryCtrl.text,
+            latitude: currentLocation?.latitude ?? 0,
+            longitude: currentLocation?.longitude ?? 0,
+          ),
+        );
+      });
+    } else {
+      AppSettings.openAppSettings();
+    }
   }
 
-  void handleSearchService(ServiceOffer serviceOffer) {
-    Navigator.of(context).pushNamed(
-      SearchShopsScreen.routeName,
-      arguments: SearchShopsArgs(
-          serviceQuery: serviceOffer.pk.toString(),
-          serviceName: serviceOffer.serviceName),
-    );
+  Future<void> handleSearchService(ServiceOffer serviceOffer) async {
+    final locationPermGranted = await AppPermission.locationPermission();
+
+    if (locationPermGranted) {
+      EasyLoading.show();
+
+      final currentLocation = await getCurrentLocation();
+
+      EasyLoading.dismiss();
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushNamed(
+          SearchShopsScreen.routeName,
+          arguments: SearchShopsArgs(
+            serviceQuery: serviceOffer.pk.toString(),
+            serviceName: serviceOffer.serviceName,
+            latitude: currentLocation?.latitude ?? 0,
+            longitude: currentLocation?.longitude ?? 0,
+          ),
+        );
+      });
+    } else {
+      AppSettings.openAppSettings();
+    }
   }
 }

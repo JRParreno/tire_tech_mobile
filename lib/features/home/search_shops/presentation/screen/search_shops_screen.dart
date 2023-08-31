@@ -19,11 +19,15 @@ class SearchShopsArgs {
     this.categoryQuery,
     this.serviceQuery,
     this.serviceName,
+    this.longitude = 0,
+    this.latitude = 0,
   });
 
   final String? categoryQuery;
   final String? serviceQuery;
   final String? serviceName;
+  final double longitude;
+  final double latitude;
 }
 
 class SearchShopsScreen extends StatefulWidget {
@@ -59,6 +63,8 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
           SearchShopEvent(
             categoryQuery: widget.args.categoryQuery,
             serviceQuery: widget.args.serviceQuery,
+            latitude: widget.args.latitude,
+            longitude: widget.args.longitude,
           ),
         ),
       child: Scaffold(
@@ -192,15 +198,23 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
-      isScrollControlled: false,
+      isScrollControlled: true,
       isDismissible: false,
       builder: (BuildContext context) {
-        return ShopListDraggable(
-          title: widget.args.categoryQuery != null
-              ? widget.args.categoryQuery!
-              : widget.args.serviceName!,
-          shops: shops,
-          onTap: (shop) => handleOpenShopModal(shop: shop, shops: shops),
+        return Container(
+          decoration: const BoxDecoration(
+            color: Color(0xFF2E2E2E),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.elliptical(100, 80),
+            ),
+          ),
+          child: ShopListDraggable(
+            title: widget.args.categoryQuery != null
+                ? widget.args.categoryQuery!
+                : widget.args.serviceName!,
+            shops: shops,
+            onTap: (shop) => handleOpenShopModal(shop: shop, shops: shops),
+          ),
         );
       },
     );

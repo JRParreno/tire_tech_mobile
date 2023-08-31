@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/core/common_widget/custom_appbar.dart';
 import 'package:tire_tech_mobile/core/utils/profile_utils.dart';
+import 'package:tire_tech_mobile/features/account/profile/presentation/screens/change_password_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/screens/update_account_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/widgets/review_report/review_report_form.dart';
 
@@ -160,6 +161,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: Colors.white,
                   thickness: 3,
                 ),
+                GestureDetector(
+                  onTap: handleNavigateChangePassword,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        CustomText(
+                          text: 'Change Password',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Divider(
+                  color: Colors.white,
+                  thickness: 3,
+                ),
                 SizedBox(
                   width: double.infinity,
                   child: Column(
@@ -187,5 +215,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void handleNavigateEditProfile() {
     Navigator.of(context).pushNamed(UpdateAccountScreen.routeName);
+  }
+
+  void handleNavigateChangePassword() {
+    Navigator.of(context).pushNamed(ChangePasswordScreen.routeName);
   }
 }

@@ -44,6 +44,7 @@ class _UpdateAccountScreenState extends State<UpdateAccountScreen> {
       completeAddressCtrl.text = profile.address;
       lastNameCtrl.text = profile.lastName;
       firstNameCtrl.text = profile.firstName;
+      gender = profile.gender;
     }
   }
 

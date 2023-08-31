@@ -23,8 +23,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final formKey = GlobalKey<FormState>();
   bool _passwordVisible = true;
   bool _passwordConfirmVisible = true;
-  // FocusNode passwordSignupFocus = FocusNode();
-  // FocusNode confirmPasswordFocus = FocusNode();
 
   void handleSubmit() {
     if (formKey.currentState!.validate()) {

@@ -27,8 +27,11 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
 
     if (categoryQuery != null) {
       try {
-        final shops =
-            await SearchShopsRepositoryImpl().searchShop(categoryQuery);
+        final shops = await SearchShopsRepositoryImpl().searchShop(
+          query: categoryQuery,
+          latitude: event.latitude,
+          longitude: event.longitude,
+        );
         return emit(ShopLoaded(shops: shops));
       } catch (err) {
         return emit(ErrorState(err.toString()));
@@ -37,8 +40,11 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
 
     if (serviceQuery != null) {
       try {
-        final shops =
-            await SearchShopsRepositoryImpl().searchShopByService(serviceQuery);
+        final shops = await SearchShopsRepositoryImpl().searchShopByService(
+          query: serviceQuery,
+          latitude: event.latitude,
+          longitude: event.longitude,
+        );
         return emit(ShopLoaded(shops: shops));
       } catch (err) {
         return emit(ErrorState(err.toString()));

@@ -8,8 +8,13 @@ class SearchShopsRepositoryImpl extends SearchShopsRepository {
   final Dio dio = Dio();
 
   @override
-  Future<List<Shop>> searchShop(String query) async {
-    String url = '${AppConstant.serverUrl}/api/find-shop?search_query=$query';
+  Future<List<Shop>> searchShop({
+    required String query,
+    required double longitude,
+    required double latitude,
+  }) async {
+    String url =
+        '${AppConstant.serverUrl}/api/find-shop?search_query=$query&user_longitude=$longitude&user_latitude=$latitude';
 
     return await ApiInterceptor.apiInstance().get(url).then((value) {
       final results = value.data['results'] as List<dynamic>;
@@ -28,8 +33,13 @@ class SearchShopsRepositoryImpl extends SearchShopsRepository {
   }
 
   @override
-  Future<List<Shop>> searchShopByService(String query) async {
-    String url = '${AppConstant.serverUrl}/api/find-shop?service_pk=$query';
+  Future<List<Shop>> searchShopByService({
+    required String query,
+    required double longitude,
+    required double latitude,
+  }) async {
+    String url =
+        '${AppConstant.serverUrl}/api/find-shop?service_pk=$query&user_longitude=$longitude&user_latitude=$latitude';
 
     return await ApiInterceptor.apiInstance().get(url).then((value) {
       final results = value.data['results'] as List<dynamic>;

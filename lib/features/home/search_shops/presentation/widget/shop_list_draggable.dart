@@ -17,17 +17,11 @@ class ShopListDraggable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: 0.65,
+      initialChildSize: .35,
       expand: false,
       builder: (context, scrollController) {
-        return Container(
-          decoration: const BoxDecoration(
-            color: Color(0xFF2E2E2E),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.elliptical(100, 80),
-            ),
-          ),
-          height: MediaQuery.of(context).size.height * 0.75,
+        return SingleChildScrollView(
+          controller: scrollController,
           child: AnimatedPadding(
             duration: const Duration(milliseconds: 100),
             padding: MediaQuery.of(context).viewInsets,
@@ -45,44 +39,42 @@ class ShopListDraggable extends StatelessWidget {
                     ),
                   ),
                 ),
-                Flexible(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      header(context),
-                      Expanded(
-                          child: Column(
-                        children: [
-                          if (shops.isEmpty) ...[
-                            const ListTile(
-                              dense: true,
-                              title: Center(
-                                child: Text(
-                                  'No shops found',
-                                  style: TextStyle(fontSize: 16),
-                                ),
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    header(context),
+                    Column(
+                      children: [
+                        if (shops.isEmpty) ...[
+                          const ListTile(
+                            dense: true,
+                            title: Center(
+                              child: Text(
+                                'No shops found',
+                                style: TextStyle(fontSize: 16),
                               ),
                             ),
-                          ] else ...[
-                            CustomScrollView(
-                              shrinkWrap: true,
-                              slivers: [
-                                SliverList(
-                                  delegate: SliverChildBuilderDelegate(
-                                    childCount: shops.length,
-                                    (context, index) {
-                                      final shop = shops[index];
-                                      return shopTile(shop);
-                                    },
-                                  ),
+                          ),
+                        ] else ...[
+                          CustomScrollView(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            slivers: [
+                              SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  childCount: shops.length,
+                                  (context, index) {
+                                    final shop = shops[index];
+                                    return shopTile(shop);
+                                  },
                                 ),
-                              ],
-                            )
-                          ]
-                        ],
-                      )),
-                    ],
-                  ),
+                              ),
+                            ],
+                          )
+                        ]
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -102,17 +94,13 @@ class ShopListDraggable extends StatelessWidget {
         ),
       ),
       height: MediaQuery.of(context).size.height * 0.06,
-      child: Flexible(
-        flex: 1,
-        fit: FlexFit.tight,
-        child: Center(
-          child: CustomText(
-            text: title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+      child: Center(
+        child: CustomText(
+          text: title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -128,6 +116,7 @@ class ShopListDraggable extends StatelessWidget {
           10,
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.max,
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
@@ -137,8 +126,7 @@ class ShopListDraggable extends StatelessWidget {
                 color: Colors.red,
               ),
             ),
-            Flexible(
-              fit: FlexFit.tight,
+            Expanded(
               child: Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
