@@ -12,7 +12,9 @@ import 'package:tire_tech_mobile/features/account/profile/data/models/profile.da
 import 'package:tire_tech_mobile/features/account/profile/data/repositories/profile_repository_impl.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/bloc/upload_id/upload_id_bloc.dart';
 import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/presentation/bloc/shop_review_bloc/shop_review_bloc.dart';
 import 'package:tire_tech_mobile/features/onboarding/onboarding_screen.dart';
+import 'package:tire_tech_mobile/features/review/data/repository/shop_review_repository_impl.dart';
 
 class TireTechApp extends StatefulWidget {
   const TireTechApp({super.key});
@@ -69,6 +71,8 @@ class _TireTechAppState extends State<TireTechApp> {
       providers: [
         BlocProvider(create: (ctx) => ProfileBloc()),
         BlocProvider(create: (ctx) => UploadIdBloc()),
+        BlocProvider(
+            create: (ctx) => ShopReviewBloc(ShopReviewRepositoryImpl())),
       ],
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (ctx, state) {

@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ShopHeader extends StatelessWidget {
-  const ShopHeader({super.key, required this.shop});
+  const ShopHeader({
+    super.key,
+    required this.shop,
+    required this.rate,
+  });
 
   final Shop shop;
+  final double rate;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +32,24 @@ class ShopHeader extends StatelessWidget {
             flex: 1,
             fit: FlexFit.tight,
             child: Center(
-              child: CustomText(
-                text: shop.shopName,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: CustomText(
+                      text: shop.shopName,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  ShopRating(rate: rate),
+                ],
               ),
             ),
           ),

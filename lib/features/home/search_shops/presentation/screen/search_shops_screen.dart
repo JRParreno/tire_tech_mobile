@@ -7,11 +7,13 @@ import 'package:tire_tech_mobile/core/bloc/common/common_state.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/core/common_widget/custom_appbar.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop.dart';
-import 'package:tire_tech_mobile/features/home/search_shops/presentation/bloc/shop_bloc.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/presentation/bloc/shop_bloc/shop_bloc.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/presentation/bloc/shop_review_bloc/shop_review_bloc.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_address.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_header.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_information.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_list_draggable.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_rating.dart';
 import 'package:tire_tech_mobile/features/menu/presentation/screen/menu_screen.dart';
 
 class SearchShopsArgs {
@@ -44,9 +46,11 @@ class SearchShopsScreen extends StatefulWidget {
 class _SearchShopsScreenState extends State<SearchShopsScreen> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+  late ShopReviewBloc shopReviewBloc;
 
   @override
   void initState() {
+    shopReviewBloc = BlocProvider.of<ShopReviewBloc>(context);
     super.initState();
   }
 
@@ -158,7 +162,7 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
           title: shop.shopName,
           snippet: shop.addressName,
         ),
-        onTap: () => handleShowShopBottomSheet(shop: shop, shops: shops),
+        onTap: () => handleShowShopBottomSheet(shop),
       );
       markers.add(tempMarker);
     }
@@ -166,28 +170,68 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
     return markers;
   }
 
-  void handleShowShopBottomSheet({
-    required Shop shop,
-    required List<Shop> shops,
-  }) {
+  void handleShowShopBottomSheet(Shop shop) {
+    shopReviewBloc.add(GetShopReviewEvent(shop.pk.toString()));
+
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       isDismissible: false,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height * 0.5,
           decoration: const BoxDecoration(
             color: Color(0xFF2E2E2E),
             borderRadius:
                 BorderRadius.only(topRight: Radius.elliptical(80, 60)),
           ),
-          child: Column(
-            children: [
-              ShopHeader(shop: shop),
-              ShopAddress(shop: shop),
-              ShopInformation(shop: shop),
-            ],
+          child: DraggableScrollableSheet(
+            initialChildSize: .35,
+            expand: false,
+            builder: (context, scrollController) {
+              return SingleChildScrollView(
+                controller: scrollController,
+                child: AnimatedPadding(
+                  duration: const Duration(milliseconds: 100),
+                  padding: MediaQuery.of(context).viewInsets,
+                  child: BlocBuilder<ShopReviewBloc, ShopReviewState>(
+                    builder: (context, state) {
+                      if (state is LoadingState) {
+                        return const Center(
+                          child: CircularProgressIndicator(value: 1),
+                        );
+                      }
+                      if (state is ShopReviewLoaded) {
+                        return Column(
+                          children: [
+                            Visibility(
+                              child: Container(
+                                height: 4,
+                                width: 32,
+                                margin: const EdgeInsets.only(top: 15),
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(3)),
+                                ),
+                              ),
+                            ),
+                            ShopHeader(
+                              shop: shop,
+                              rate: state.shopRateUser.rate,
+                            ),
+                            ShopAddress(shop: shop),
+                            ShopInformation(shop: shop),
+                          ],
+                        );
+                      }
+
+                      return const SizedBox();
+                    },
+                  ),
+                ),
+              );
+            },
           ),
         );
       },
@@ -227,7 +271,7 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
     Navigator.of(context).pop();
 
     Future.delayed(const Duration(milliseconds: 500), () {
-      handleShowShopBottomSheet(shop: shop, shops: shops);
+      handleShowShopBottomSheet(shop);
     });
   }
 
