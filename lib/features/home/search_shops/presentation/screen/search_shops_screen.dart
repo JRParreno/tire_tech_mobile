@@ -10,6 +10,7 @@ import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop.dar
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/bloc/shop_bloc/shop_bloc.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/bloc/shop_review_bloc/shop_review_bloc.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_address.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_gallery_btn.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_header.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_information.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_list_draggable.dart';
@@ -228,7 +229,13 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
                             ShopReviewBtn(
                               pk: shop.pk.toString(),
                               shopRateUser: state.shopRateUser,
-                            )
+                            ),
+                            if (shop.shopPhotos.isNotEmpty) ...[
+                              ShopGalleryBtn(
+                                shopName: shop.shopName,
+                                photoUrls: shop.shopPhotos,
+                              )
+                            ]
                           ],
                         );
                       }
