@@ -15,3 +15,21 @@ class GetShopReviewEvent extends ShopReviewEvent {
   @override
   List<Object> get props => [pk];
 }
+
+class GetShopReviewListEvent extends ShopReviewEvent {
+  const GetShopReviewListEvent(this.pk);
+
+  final String pk;
+
+  @override
+  List<Object> get props => [pk];
+}
+
+class GetShopReviewPaginateListEvent extends ShopReviewEvent {
+  const GetShopReviewPaginateListEvent(this.pk);
+
+  final String pk;
+
+  @override
+  List<Object> get props => [pk];
+}

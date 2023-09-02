@@ -13,7 +13,7 @@ import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_header.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_information.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_list_draggable.dart';
-import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_rating.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_review_btn.dart';
 import 'package:tire_tech_mobile/features/menu/presentation/screen/menu_screen.dart';
 
 class SearchShopsArgs {
@@ -222,6 +222,9 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
                             ),
                             ShopAddress(shop: shop),
                             ShopInformation(shop: shop),
+                            ShopReviewBtn(
+                              pk: shop.pk.toString(),
+                            )
                           ],
                         );
                       }

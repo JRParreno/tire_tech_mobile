@@ -8,10 +8,29 @@ class ShopReviewState extends Equatable {
 }
 
 class ShopReviewLoaded extends ShopReviewState {
-  const ShopReviewLoaded(this.shopRateUser);
+  const ShopReviewLoaded({
+    required this.shopRateUser,
+    this.shopReviews = const [],
+    this.page = 1,
+    this.isPaginate = false,
+    this.hasNext = false,
+    this.count = 0,
+  });
 
   final ShopRateUser shopRateUser;
+  final List<ShopReview> shopReviews;
+  final int page;
+  final bool isPaginate;
+  final bool hasNext;
+  final int count;
 
   @override
-  List<Object?> get props => [shopRateUser];
+  List<Object?> get props => [
+        shopRateUser,
+        shopReviews,
+        page,
+        isPaginate,
+        hasNext,
+        count,
+      ];
 }
