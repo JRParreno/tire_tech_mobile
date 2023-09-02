@@ -24,7 +24,7 @@ PreferredSizeWidget buildAppBar({
                 color: Colors.white,
               ),
               onPressed: () {
-                Navigator.of(context).pop(false);
+                Navigator.of(context).pop();
               },
             )
         : null,

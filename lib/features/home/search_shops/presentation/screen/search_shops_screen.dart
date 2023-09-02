@@ -197,8 +197,11 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
                   child: BlocBuilder<ShopReviewBloc, ShopReviewState>(
                     builder: (context, state) {
                       if (state is LoadingState) {
-                        return const Center(
-                          child: CircularProgressIndicator(value: 1),
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.35,
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
                         );
                       }
                       if (state is ShopReviewLoaded) {
@@ -224,6 +227,7 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
                             ShopInformation(shop: shop),
                             ShopReviewBtn(
                               pk: shop.pk.toString(),
+                              shopRateUser: state.shopRateUser,
                             )
                           ],
                         );

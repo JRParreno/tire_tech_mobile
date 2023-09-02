@@ -7,6 +7,7 @@ import 'package:tire_tech_mobile/features/account/signup/presentation/screens/si
 import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/screen/search_shops_screen.dart';
 import 'package:tire_tech_mobile/features/menu/presentation/screen/menu_screen.dart';
+import 'package:tire_tech_mobile/features/review/presentation/screen/shop_add_update_review_screen.dart';
 import 'package:tire_tech_mobile/features/review/presentation/screen/shop_review_screen.dart';
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -36,6 +37,11 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
         case ShopReviewScreen.routeName:
           final args = settings.arguments! as ShopReviewScreenArgs;
           return ShopReviewScreen(
+            args: args,
+          );
+        case ShopAddUpdateReviewScreen.routeName:
+          final args = settings.arguments! as ShopAddUpdateReviewScreenArgs;
+          return ShopAddUpdateReviewScreen(
             args: args,
           );
       }

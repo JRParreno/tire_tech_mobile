@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_rating.dart';
@@ -10,9 +8,13 @@ class ShopReviewCard extends StatelessWidget {
   const ShopReviewCard({
     super.key,
     required this.shopReview,
+    this.isEdit = false,
+    this.onTap,
   });
 
   final ShopReview shopReview;
+  final bool isEdit;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,18 @@ class ShopReviewCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomText(text: censor(shopReview.fullName)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomText(text: censor(shopReview.fullName)),
+                if (isEdit) ...[
+                  GestureDetector(
+                    onTap: onTap,
+                    child: const Icon(Icons.edit),
+                  ),
+                ]
+              ],
+            ),
             ShopRating(
               rate: shopReview.rate.toDouble(),
               itemPadding: const EdgeInsets.symmetric(horizontal: 0.0),

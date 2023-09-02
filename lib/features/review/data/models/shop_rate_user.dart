@@ -2,22 +2,32 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:tire_tech_mobile/features/review/data/models/shop_review.dart';
+
 class ShopRateUser extends Equatable {
   final double rate;
-  final String? commentId;
+  final ShopReview? userReview;
+  final bool isOwner;
+  final String shopName;
 
   const ShopRateUser({
     required this.rate,
-    this.commentId,
+    required this.shopName,
+    this.userReview,
+    this.isOwner = false,
   });
 
   ShopRateUser copyWith({
     double? rate,
-    String? commentId,
+    ShopReview? userReview,
+    bool? isOwner,
+    String? shopName,
   }) {
     return ShopRateUser(
       rate: rate ?? this.rate,
-      commentId: commentId ?? this.commentId,
+      userReview: userReview ?? this.userReview,
+      isOwner: isOwner ?? this.isOwner,
+      shopName: shopName ?? this.shopName,
     );
   }
 
@@ -25,17 +35,25 @@ class ShopRateUser extends Equatable {
     final result = <String, dynamic>{};
 
     result.addAll({'rate': rate});
-    if (commentId != null) {
-      result.addAll({'commentId': commentId});
+    if (userReview != null) {
+      result.addAll({'userReview': userReview!.toMap()});
     }
+    result.addAll({'isOwner': isOwner});
 
     return result;
   }
 
+  @override
+  List<Object?> get props => [rate, userReview, isOwner];
+
   factory ShopRateUser.fromMap(Map<String, dynamic> map) {
     return ShopRateUser(
       rate: map['rate']?.toDouble() ?? 0.0,
-      commentId: map['comment_id'],
+      userReview: map['user_review'] != null
+          ? ShopReview.fromMap(map['user_review'])
+          : null,
+      isOwner: map['isOwner'] ?? false,
+      shopName: map['shop_name'],
     );
   }
 
@@ -43,10 +61,4 @@ class ShopRateUser extends Equatable {
 
   factory ShopRateUser.fromJson(String source) =>
       ShopRateUser.fromMap(json.decode(source));
-
-  @override
-  String toString() => 'ShopRateUser(rate: $rate, commentId: $commentId)';
-
-  @override
-  List<Object?> get props => [rate, commentId];
 }

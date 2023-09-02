@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/bloc/shop_review_bloc/shop_review_bloc.dart';
+import 'package:tire_tech_mobile/features/review/data/models/shop_rate_user.dart';
 import 'package:tire_tech_mobile/features/review/presentation/screen/shop_review_screen.dart';
 
 class ShopReviewBtn extends StatelessWidget {
-  const ShopReviewBtn({super.key, required this.pk});
+  const ShopReviewBtn({
+    super.key,
+    required this.pk,
+    required this.shopRateUser,
+  });
 
   final String pk;
+  final ShopRateUser shopRateUser;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,10 @@ class ShopReviewBtn extends StatelessWidget {
                       .add(GetShopReviewListEvent(pk));
                   Navigator.of(context).pushNamed(
                     ShopReviewScreen.routeName,
-                    arguments: ShopReviewScreenArgs(pk),
+                    arguments: ShopReviewScreenArgs(
+                      pk: pk,
+                      shopRateUser: shopRateUser,
+                    ),
                   );
                 },
                 label: 'Reviews',

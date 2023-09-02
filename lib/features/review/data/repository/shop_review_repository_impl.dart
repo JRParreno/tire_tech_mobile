@@ -14,8 +14,27 @@ class ShopReviewRepositoryImpl implements ShopReviewRepository {
       {required String pk,
       required String description,
       required int rate}) async {
-    // TODO: implement fetchShopReviewList
-    throw UnimplementedError();
+    final String url = '${AppConstant.apiUrl}/shop-review-list/$pk';
+    final data = {
+      "rate": rate,
+      "shop_pk": pk,
+      "description": description,
+    };
+
+    return await ApiInterceptor.apiInstance()
+        .post(
+      url,
+      data: data,
+    )
+        .then((value) {
+      final response = value.data;
+
+      return ShopReview.fromMap(response);
+    }).catchError((error) {
+      throw error;
+    }).onError((error, stackTrace) {
+      throw error!;
+    });
   }
 
   @override
