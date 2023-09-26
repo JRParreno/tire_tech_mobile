@@ -23,12 +23,13 @@ class ReviewReportForm extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Colors.white60,
+              color: const Color(0xFFE6E6E6),
             ),
             padding: const EdgeInsets.all(5),
             child: Row(
               children: [
                 Expanded(
+                  flex: 1,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +61,7 @@ class ReviewReportForm extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Colors.white60,
+              color: const Color(0xFFE6E6E6),
             ),
             padding: const EdgeInsets.all(5),
             child: Row(
