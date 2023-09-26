@@ -126,11 +126,11 @@ class _OnboadingScreenState extends State<OnBoardingScreen> {
                                     activeColor: Colors.white,
                                     checkColor: Colors.black,
                                   ),
-                                  Expanded(
+                                  const Expanded(
                                       child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: const [
+                                    children: [
                                       CustomText(
                                         text: "Check the box to continue.",
                                         style: TextStyle(

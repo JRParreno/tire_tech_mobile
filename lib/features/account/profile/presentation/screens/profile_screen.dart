@@ -163,12 +163,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 GestureDetector(
                   onTap: handleNavigateChangePassword,
-                  child: SizedBox(
+                  child: const SizedBox(
                     width: double.infinity,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
+                      children: [
                         CustomText(
                           text: 'Change Password',
                           style: TextStyle(
@@ -188,12 +188,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: Colors.white,
                   thickness: 3,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       CustomText(
                         text: 'About us',
                         style: TextStyle(

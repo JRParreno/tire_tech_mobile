@@ -90,11 +90,11 @@ class _SearchServicesScreenState extends State<SearchServicesScreen> {
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
+                  const Padding(
+                    padding: EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         CustomText(
                           text: "Select Preferred",
                           style: TextStyle(
