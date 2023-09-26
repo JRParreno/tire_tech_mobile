@@ -34,7 +34,7 @@ class ShopListDraggable extends StatelessWidget {
                     width: 32,
                     margin: const EdgeInsets.only(top: 15),
                     decoration: const BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.black,
                       borderRadius: BorderRadius.all(Radius.circular(3)),
                     ),
                   ),
@@ -89,7 +89,7 @@ class ShopListDraggable extends StatelessWidget {
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
       ),
@@ -98,7 +98,6 @@ class ShopListDraggable extends StatelessWidget {
         child: CustomText(
           text: title,
           style: const TextStyle(
-            color: Colors.white,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -131,7 +130,7 @@ class ShopListDraggable extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white),
+                    color: const Color(0xFFE6E6E6)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

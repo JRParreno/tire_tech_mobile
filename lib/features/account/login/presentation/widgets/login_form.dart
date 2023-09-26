@@ -32,10 +32,7 @@ class LoginForm extends StatelessWidget {
         top: 45,
         bottom: 10,
       ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(topRight: Radius.elliptical(100, 80)),
-      ),
+      color: Colors.white,
       child: Column(
         children: [
           const CustomText(
@@ -49,7 +46,7 @@ class LoginForm extends StatelessWidget {
             height: 5,
           ),
           const CustomText(
-            text: 'Sing in to continue',
+            text: 'Log in to continue',
             style: TextStyle(
               fontSize: 14,
               color: ColorName.placeHolder,

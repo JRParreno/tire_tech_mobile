@@ -46,10 +46,6 @@ class ShopReviewBtn extends StatelessWidget {
                   );
                 },
                 label: 'Reviews',
-                backgroundColor: Colors.blue,
-                btnStyle: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                ),
               ),
             ),
           )

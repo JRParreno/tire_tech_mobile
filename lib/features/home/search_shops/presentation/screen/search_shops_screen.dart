@@ -16,6 +16,7 @@ import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_list_draggable.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_review_btn.dart';
 import 'package:tire_tech_mobile/features/menu/presentation/screen/menu_screen.dart';
+import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
 class SearchShopsArgs {
   const SearchShopsArgs({
@@ -74,21 +75,41 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
         ),
       child: Scaffold(
         appBar: buildAppBar(
+          backgroundColor: ColorName.primary.withOpacity(.50),
           context: context,
-          leading: GestureDetector(
-            onTap: () => Navigator.of(context).pop(false),
-            child: const Icon(Icons.search),
+          titleWidget: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pop(false),
+              child: const CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 20,
+                child: Icon(
+                  Icons.search,
+                  color: ColorName.primary,
+                ),
+              ),
+            ),
           ),
+          showBackBtn: true,
           actions: [
             GestureDetector(
               onTap: handleNavigateMenu,
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Icon(Icons.menu),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 20,
+                  child: Icon(
+                    Icons.menu,
+                    color: ColorName.primary,
+                  ),
+                ),
               ),
             )
           ],
         ),
+        extendBodyBehindAppBar: true,
         body: BlocBuilder<ShopBloc, ShopState>(
           builder: (context, state) {
             if (state is LoadingState) {
@@ -181,11 +202,7 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
       isDismissible: false,
       builder: (BuildContext context) {
         return Container(
-          decoration: const BoxDecoration(
-            color: Color(0xFF2E2E2E),
-            borderRadius:
-                BorderRadius.only(topRight: Radius.elliptical(80, 60)),
-          ),
+          color: Colors.white,
           child: DraggableScrollableSheet(
             initialChildSize: .35,
             expand: false,
@@ -214,7 +231,7 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
                                 width: 32,
                                 margin: const EdgeInsets.only(top: 15),
                                 decoration: const BoxDecoration(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(3)),
                                 ),
@@ -260,12 +277,7 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
       isDismissible: false,
       builder: (BuildContext context) {
         return Container(
-          decoration: const BoxDecoration(
-            color: Color(0xFF2E2E2E),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.elliptical(100, 80),
-            ),
-          ),
+          color: Colors.white,
           child: ShopListDraggable(
             title: widget.args.categoryQuery != null
                 ? widget.args.categoryQuery!

@@ -42,7 +42,7 @@ class CustomBtn extends StatelessWidget {
                     backgroundColor: backgroundColor ?? ColorName.primary,
                     shape: RoundedRectangleBorder(
                         // border radius
-                        borderRadius: BorderRadius.circular(6)),
+                        borderRadius: BorderRadius.circular(20)),
                   ),
               label: CustomText(
                 text: label,
@@ -57,7 +57,7 @@ class CustomBtn extends StatelessWidget {
                     backgroundColor: backgroundColor ?? ColorName.primary,
                     shape: RoundedRectangleBorder(
                         // border radius
-                        borderRadius: BorderRadius.circular(6)),
+                        borderRadius: BorderRadius.circular(20)),
                   ),
               child: CustomText(
                 text: label,

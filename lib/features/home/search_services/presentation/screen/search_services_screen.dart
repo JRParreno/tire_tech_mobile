@@ -48,8 +48,19 @@ class _SearchServicesScreenState extends State<SearchServicesScreen> {
                   image: AssetImage("assets/images/background.png"),
                   fit: BoxFit.cover),
             ),
-            child: Padding(
+            child: Container(
               padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: const Alignment(1, 1),
+                  colors: <Color>[
+                    const Color(0xff38b6ff).withOpacity(1),
+                    const Color(0xff38b6ff).withOpacity(0.25),
+                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                  tileMode: TileMode.mirror,
+                ),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -128,7 +139,7 @@ class _SearchServicesScreenState extends State<SearchServicesScreen> {
                                   serviceOffer,
                                 ),
                                 label: serviceOffer.serviceName,
-                                backgroundColor: const Color(0x008F8E8E),
+                                backgroundColor: Colors.white,
                                 style: const TextStyle(
                                   fontSize: 17,
                                   color: Colors.black,

@@ -13,6 +13,7 @@ import 'package:tire_tech_mobile/features/account/signup/data/models/signup.dart
 import 'package:tire_tech_mobile/features/account/signup/data/repositories/signup_repository_impl.dart';
 import 'package:tire_tech_mobile/features/account/signup/presentation/widgets/signup_form.dart';
 import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
+import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String routeName = '/signup';
@@ -48,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       appBar: buildAppBar(context: context),
       body: Container(
-        color: Colors.black,
+        color: ColorName.primary,
         padding: const EdgeInsets.only(top: 10),
         child: Container(
           padding: const EdgeInsets.only(

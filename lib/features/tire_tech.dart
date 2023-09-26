@@ -87,6 +87,7 @@ class _TireTechAppState extends State<TireTechApp> {
           return ScreenUtilInit(
             designSize: const Size(375, 812),
             minTextAdapt: true,
+            useInheritedMediaQuery: true,
             builder: ((context, child) {
               return MaterialApp(
                 navigatorKey: TireTechApp.navKey,

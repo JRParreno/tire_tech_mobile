@@ -37,10 +37,6 @@ class ShopGalleryBtn extends StatelessWidget {
                 );
               },
               label: 'Shop Gallery',
-              backgroundColor: Colors.blue,
-              btnStyle: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-              ),
             ),
           )
         ],

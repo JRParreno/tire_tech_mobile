@@ -9,12 +9,16 @@ PreferredSizeWidget buildAppBar({
   Widget? leading,
   bool showBackBtn = false,
   List<Widget>? actions,
+  Color? backgroundColor,
+  Widget? titleWidget,
 }) {
   return AppBar(
     toolbarHeight: kToolbarHeight,
     titleSpacing: 0,
-    backgroundColor: ColorName.primary,
-    centerTitle: true,
+    backgroundColor: backgroundColor ?? ColorName.primary,
+    centerTitle: titleWidget != null ? false : true,
+    elevation: 0,
+    automaticallyImplyLeading: false,
     leading: !showBackBtn
         ? leading ??
             IconButton(
@@ -28,15 +32,16 @@ PreferredSizeWidget buildAppBar({
               },
             )
         : null,
-    title: Text(
-      title ?? AppConstant.appName,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w700,
-        letterSpacing: .3,
-      ),
-    ),
+    title: titleWidget ??
+        Text(
+          title ?? AppConstant.appName,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w700,
+            letterSpacing: .3,
+          ),
+        ),
     actions: actions,
   );
 }

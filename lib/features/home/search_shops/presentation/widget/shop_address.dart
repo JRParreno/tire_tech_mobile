@@ -29,7 +29,8 @@ class ShopAddress extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10), color: Colors.white),
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color(0xFFE6E6E6)),
               child: CustomText(
                 text: shop.addressName,
                 style: const TextStyle(

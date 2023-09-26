@@ -12,6 +12,7 @@ import 'package:tire_tech_mobile/features/account/profile/data/models/profile.da
 import 'package:tire_tech_mobile/features/account/profile/data/repositories/profile_repository_impl.dart';
 import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
 import 'package:tire_tech_mobile/gen/assets.gen.dart';
+import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -48,38 +49,35 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: SafeArea(
-        child: Container(
-          color: Colors.black,
-          child: Column(
-            children: [
-              SizedBox(
-                height: height * .30,
-                child: Center(
-                  child: Assets.images.icon.image(
-                    height: 170,
-                    width: 170,
-                    color: Colors.white,
-                  ),
+      backgroundColor: ColorName.primary,
+      body: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(
+              height: height * .40,
+              child: Center(
+                child: Assets.images.icon.image(
+                  height: 170,
+                  width: 170,
+                  color: Colors.white,
                 ),
               ),
-              Expanded(
-                child: LoginForm(
-                  emailController: emailCtrl,
-                  formKey: loginFormKey,
-                  passwordController: passwordCtrl,
-                  passwordVisible: _passwordVisible,
-                  onSubmit: handleLogin,
-                  suffixIcon: GestureDetector(
-                    onTap: handleOnChangePassVisible,
-                    child: Icon(!_passwordVisible
-                        ? Icons.visibility
-                        : Icons.visibility_off),
-                  ),
-                ),
-              )
-            ],
-          ),
+            ),
+            LoginForm(
+              emailController: emailCtrl,
+              formKey: loginFormKey,
+              passwordController: passwordCtrl,
+              passwordVisible: _passwordVisible,
+              onSubmit: handleLogin,
+              suffixIcon: GestureDetector(
+                onTap: handleOnChangePassVisible,
+                child: Icon(!_passwordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off),
+              ),
+            )
+          ],
         ),
       ),
     );

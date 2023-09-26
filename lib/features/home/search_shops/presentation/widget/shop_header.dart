@@ -21,7 +21,7 @@ class ShopHeader extends StatelessWidget {
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
       ),
@@ -32,24 +32,34 @@ class ShopHeader extends StatelessWidget {
             flex: 1,
             fit: FlexFit.tight,
             child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: CustomText(
-                      text: shop.shopName,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 25),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.store_outlined,
+                          size: 30,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        CustomText(
+                          text: shop.shopName,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                  ShopRating(rate: rate),
-                ],
+                    const SizedBox(height: 5),
+                    ShopRating(rate: rate),
+                  ],
+                ),
               ),
             ),
           ),
@@ -64,7 +74,6 @@ class ShopHeader extends StatelessWidget {
                   child: const Icon(
                     Icons.location_pin,
                     size: 30,
-                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(
@@ -75,7 +84,7 @@ class ShopHeader extends StatelessWidget {
                   child: const Icon(
                     Icons.phone,
                     size: 30,
-                    color: Colors.white,
+                    color: Color(0xFF00BF63),
                   ),
                 ),
               ],

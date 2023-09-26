@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tire_tech_mobile/core/common_widget/custom_text.dart';
 import 'package:tire_tech_mobile/core/utils/size_config.dart';
 import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
@@ -68,90 +69,98 @@ class _CustomTextFieldState extends State<CustomTextField> {
           Padding(
             padding:
                 widget.padding ?? const EdgeInsets.symmetric(horizontal: 24),
-            child: TextFormField(
-              focusNode: widget.focusNode,
-              obscureText: widget.obscureText,
-              inputFormatters: widget.inputFormatters,
-              onTap: widget.onTap,
-              onChanged: widget.onChanged,
-              readOnly: widget.readOnly,
-              maxLength: widget.maxLength,
-              controller: widget.textController,
-              autovalidateMode: widget.mode,
-              keyboardType: widget.keyboardType,
-              textInputAction: widget.textInputAction,
-              minLines: widget.minLines,
-              maxLines: widget.maxLines,
-              decoration: InputDecoration(
-                hintText: widget.hintText,
-                labelText: widget.labelText,
-                counterText: '',
-                focusColor: Colors.blue,
-                labelStyle: const TextStyle(
-                  fontSize: 16,
-                  letterSpacing: .3,
-                  fontWeight: FontWeight.w400,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(text: widget.labelText),
+                const SizedBox(
+                  height: 10,
                 ),
-                floatingLabelStyle: MaterialStateTextStyle.resolveWith(
-                    (Set<MaterialState> states) {
-                  final Color? color = states.contains(MaterialState.error)
-                      ? ColorName.error
-                      : null;
-                  return TextStyle(
+                TextFormField(
+                  focusNode: widget.focusNode,
+                  obscureText: widget.obscureText,
+                  inputFormatters: widget.inputFormatters,
+                  onTap: widget.onTap,
+                  onChanged: widget.onChanged,
+                  readOnly: widget.readOnly,
+                  maxLength: widget.maxLength,
+                  controller: widget.textController,
+                  autovalidateMode: widget.mode,
+                  keyboardType: widget.keyboardType,
+                  textInputAction: widget.textInputAction,
+                  minLines: widget.minLines,
+                  maxLines: widget.maxLines,
+                  decoration: InputDecoration(
+                    hintText: widget.hintText,
+                    counterText: '',
+                    focusColor: Colors.blue,
+                    labelStyle: const TextStyle(
+                      fontSize: 16,
+                      letterSpacing: .3,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    floatingLabelStyle: MaterialStateTextStyle.resolveWith(
+                        (Set<MaterialState> states) {
+                      final Color? color = states.contains(MaterialState.error)
+                          ? ColorName.error
+                          : null;
+                      return TextStyle(
+                        fontSize: 16,
+                        letterSpacing: .5,
+                        fontWeight: FontWeight.w700,
+                        color: color,
+                      );
+                    }),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                        color: ColorName.error,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                        color: ColorName.border,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                        color: ColorName.placeHolder,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                        color: ColorName.error,
+                      ),
+                    ),
+                    // contentPadding: EdgeInsets.symmetric(
+                    //   horizontal: SizeConfig.getProportionateScreenWidth(16),
+                    //   vertical: SizeConfig.getProportionateScreenHeight(16.5),
+                    // ),
+                    errorStyle: const TextStyle(
+                      fontSize: 0,
+                      height: 0,
+                    ),
+                    suffixIcon: widget.suffixIcon,
+                  ),
+                  style: const TextStyle(
                     fontSize: 16,
-                    letterSpacing: .5,
-                    fontWeight: FontWeight.w700,
-                    color: color,
-                  );
-                }),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(
-                    color: ColorName.error,
+                    letterSpacing: 0.5,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
                   ),
+                  validator: widget.validators ??
+                      (value) {
+                        if ((value == null || value.isEmpty) &&
+                            widget.parametersValidate != null) {
+                          return widget.parametersValidate;
+                        }
+                        return null;
+                      },
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(
-                    color: ColorName.border,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(
-                    color: ColorName.placeHolder,
-                  ),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(
-                    color: ColorName.error,
-                  ),
-                ),
-                // contentPadding: EdgeInsets.symmetric(
-                //   horizontal: SizeConfig.getProportionateScreenWidth(16),
-                //   vertical: SizeConfig.getProportionateScreenHeight(16.5),
-                // ),
-                errorStyle: const TextStyle(
-                  fontSize: 0,
-                  height: 0,
-                ),
-                suffixIcon: widget.suffixIcon,
-              ),
-              style: const TextStyle(
-                fontSize: 16,
-                letterSpacing: 0.5,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-              ),
-              validator: widget.validators ??
-                  (value) {
-                    if ((value == null || value.isEmpty) &&
-                        widget.parametersValidate != null) {
-                      return widget.parametersValidate;
-                    }
-                    return null;
-                  },
+              ],
             ),
           ),
           if (widget.helpText != null) ...[
