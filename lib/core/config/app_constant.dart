@@ -20,7 +20,7 @@ class AppConstant {
   static const clientId = 'zpjTOiQJyWrevPe2U6yZ9wwmhpB9ee7QHMxhuyvD';
   static const clientSecret =
       'Fn50XVhsS1FnAmxGv7MB8lCP2hPf4s1SVbgW5B2Z7452AeXcN9gWL1tq5DwqWGa3lbX7azGnjZA4BYOcqivE04WkraGRup4HAKettXURzU8iD7XGRoMaD04wFjebNGyR';
-  static const serverUrl = 'http://192.168.1.20:8000';
+  static const serverUrl = 'http://192.168.1.2:8000';
   static const apiUrl = '$serverUrl/api';
   static const apiUser = '$serverUrl/user';
   static const appName = 'Tire Tech';

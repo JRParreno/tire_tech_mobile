@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    testLoginValues();
+    // testLoginValues();
     // testSignupValues();
   }
 
@@ -111,8 +111,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void testLoginValues() {
-    emailCtrl.text = "jhonrhayparreno22@gmail.com";
-    passwordCtrl.text = "2020Rtutest@";
+    emailCtrl.text = "juandelacruz@gmail.com";
+    passwordCtrl.text = "2023Rtutest@";
   }
 
   void handleGetProfile() async {

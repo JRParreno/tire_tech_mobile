@@ -15,6 +15,7 @@ class Profile extends Equatable {
     required this.contactNumber,
     required this.gender,
     this.isNewRegister = false,
+    this.profilePhoto,
   });
 
   final String pk;
@@ -26,6 +27,7 @@ class Profile extends Equatable {
   final String address;
   final String contactNumber;
   final String gender;
+  final String? profilePhoto;
   final bool isNewRegister;
 
   Map<String, dynamic> toMap() {
@@ -40,6 +42,7 @@ class Profile extends Equatable {
     result.addAll({'address': address});
     result.addAll({'contactNumber': contactNumber});
     result.addAll({'gender': gender});
+    result.addAll({'profilePhoto': profilePhoto});
 
     return result;
   }
@@ -55,6 +58,7 @@ class Profile extends Equatable {
       address: map['address'] ?? '',
       contactNumber: map['contactNumber'] ?? '',
       gender: map['gender'] ?? '',
+      profilePhoto: map['profilePhoto'] ?? '',
     );
   }
 
@@ -73,6 +77,7 @@ class Profile extends Equatable {
     String? address,
     String? contactNumber,
     String? gender,
+    String? profilePhoto,
     bool? isNewRegister,
   }) {
     return Profile(
@@ -86,6 +91,7 @@ class Profile extends Equatable {
       contactNumber: contactNumber ?? this.contactNumber,
       gender: gender ?? this.gender,
       isNewRegister: isNewRegister ?? this.isNewRegister,
+      profilePhoto: profilePhoto ?? this.profilePhoto,
     );
   }
 
@@ -101,5 +107,6 @@ class Profile extends Equatable {
         contactNumber,
         gender,
         isNewRegister,
+        profilePhoto,
       ];
 }

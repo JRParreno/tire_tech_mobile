@@ -57,6 +57,8 @@ dependencies:
   flutter_native_splash: ^2.2.18
   url_launcher: ^6.1.11
   flutter_rating_bar: ^4.0.1
+  showcaseview: ^2.0.3
+  speech_balloon: ^0.0.4
 
 dev_dependencies:
   flutter_test:
