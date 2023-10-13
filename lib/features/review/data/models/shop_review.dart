@@ -6,11 +6,13 @@ class ShopReview extends Equatable {
   final String description;
   final int rate;
   final String fullName;
+  final String? profilePhoto;
 
   const ShopReview({
     required this.description,
     required this.rate,
     required this.fullName,
+    this.profilePhoto,
   });
 
   @override
@@ -20,11 +22,13 @@ class ShopReview extends Equatable {
     String? description,
     int? rate,
     String? fullName,
+    String? profilePhoto,
   }) {
     return ShopReview(
       description: description ?? this.description,
       rate: rate ?? this.rate,
       fullName: fullName ?? this.fullName,
+      profilePhoto: profilePhoto ?? this.profilePhoto,
     );
   }
 
@@ -43,6 +47,9 @@ class ShopReview extends Equatable {
       description: map['description'] ?? '',
       rate: map['rate']?.toInt() ?? 0,
       fullName: map['user_profile']['user']['get_full_name'] ?? '',
+      profilePhoto: map['user_profile']['profile_photo'] != null
+          ? map['user_profile']['profile_photo'] as String
+          : null,
     );
   }
 
@@ -53,5 +60,5 @@ class ShopReview extends Equatable {
 
   @override
   String toString() =>
-      'ShopReview(description: $description, rate: $rate, fullName: $fullName)';
+      'ShopReview(description: $description, rate: $rate, fullName: $fullName, profilePhoto: $profilePhoto)';
 }

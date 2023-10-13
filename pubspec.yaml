@@ -59,6 +59,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   showcaseview: ^2.0.3
   speech_balloon: ^0.0.4
+  image_picker: ^1.0.4
 
 dev_dependencies:
   flutter_test:

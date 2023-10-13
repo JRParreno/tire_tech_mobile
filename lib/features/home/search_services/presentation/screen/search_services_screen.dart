@@ -1,6 +1,8 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:tire_tech_mobile/core/bloc/profile/profile_bloc.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/core/location/get_current_location.dart';
 import 'package:tire_tech_mobile/core/permission/app_permission.dart';
@@ -68,7 +70,7 @@ class _SearchServicesScreenState extends State<SearchServicesScreen> {
                     children: [
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 15),
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: const BorderRadius.all(
@@ -86,9 +88,33 @@ class _SearchServicesScreenState extends State<SearchServicesScreen> {
                         ),
                         child: Center(
                           child: GestureDetector(
-                              onTap: () => Navigator.of(context)
-                                  .pushNamed(ProfileScreen.routeName),
-                              child: const Icon(Icons.person)),
+                            onTap: () => Navigator.of(context)
+                                .pushNamed(ProfileScreen.routeName),
+                            child: BlocBuilder<ProfileBloc, ProfileState>(
+                              builder: (context, state) {
+                                if (state is ProfileLoaded) {
+                                  return CircleAvatar(
+                                    backgroundImage:
+                                        state.profile?.profilePhoto != null
+                                            ? NetworkImage(
+                                                state.profile!.profilePhoto!,
+                                                scale: 50,
+                                              )
+                                            : null,
+                                    radius: 25,
+                                    child: state.profile?.profilePhoto != null
+                                        ? null
+                                        : const Icon(
+                                            Icons.person,
+                                            size: 20,
+                                          ),
+                                  );
+                                }
+
+                                return const SizedBox();
+                              },
+                            ),
+                          ),
                         ),
                       ),
                       Flexible(

@@ -58,7 +58,8 @@ class Profile extends Equatable {
       address: map['address'] ?? '',
       contactNumber: map['contactNumber'] ?? '',
       gender: map['gender'] ?? '',
-      profilePhoto: map['profilePhoto'] ?? '',
+      profilePhoto:
+          map['profilePhoto'] != null ? map['profilePhoto'] as String : null,
     );
   }
 

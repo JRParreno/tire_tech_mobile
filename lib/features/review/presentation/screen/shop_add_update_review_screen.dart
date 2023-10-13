@@ -104,7 +104,7 @@ class _ShopAddUpdateReviewScreenState extends State<ShopAddUpdateReviewScreen> {
               ),
               CustomTextField(
                 textController: descriptionCtrl,
-                labelText: "Description",
+                labelText: "",
                 keyboardType: TextInputType.emailAddress,
                 padding: EdgeInsets.zero,
                 maxLines: 5,

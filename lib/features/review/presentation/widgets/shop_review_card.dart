@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
+import 'package:tire_tech_mobile/core/config/app_constant.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_rating.dart';
 import 'package:tire_tech_mobile/features/review/data/models/shop_review.dart';
 import 'package:tire_tech_mobile/gen/colors.gen.dart';
@@ -34,7 +35,27 @@ class ShopReviewCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(text: censor(shopReview.fullName)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: shopReview.profilePhoto != null &&
+                              shopReview.profilePhoto!.isNotEmpty
+                          ? NetworkImage(
+                              '${AppConstant.serverUrl}/media/${shopReview.profilePhoto!}')
+                          : null,
+                      radius: 15,
+                      child: shopReview.profilePhoto != null &&
+                              shopReview.profilePhoto!.isNotEmpty
+                          ? null
+                          : const Icon(Icons.person, size: 15),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    CustomText(text: shopReview.fullName),
+                  ],
+                ),
                 if (isEdit) ...[
                   GestureDetector(
                     onTap: onTap,
@@ -42,6 +63,9 @@ class ShopReviewCard extends StatelessWidget {
                   ),
                 ]
               ],
+            ),
+            const SizedBox(
+              height: 10,
             ),
             ShopRating(
               rate: shopReview.rate.toDouble(),

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tire_tech_mobile/core/bloc/profile/profile_bloc.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/core/common_widget/custom_appbar.dart';
 import 'package:tire_tech_mobile/core/utils/profile_utils.dart';
+import 'package:tire_tech_mobile/features/account/profile/data/models/profile.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/screens/change_password_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/screens/update_account_screen.dart';
+import 'package:tire_tech_mobile/features/account/profile/presentation/screens/update_profile_picture_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/widgets/review_report/review_report_form.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -18,6 +22,20 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController reviewCtrl = TextEditingController();
   final TextEditingController reportCtrl = TextEditingController();
+
+  Profile? profile;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => initProfile());
+    super.initState();
+  }
+
+  void initProfile() {
+    setState(() {
+      profile = ProfileUtils.userProfile(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +85,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.account_circle_outlined,
-                      size: 100,
-                    ),
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: BlocBuilder<ProfileBloc, ProfileState>(
+                        builder: (context, state) {
+                          if (state is ProfileLoaded) {
+                            return SizedBox(
+                              height: 115,
+                              width: 115,
+                              child: Stack(
+                                clipBehavior: Clip.none,
+                                fit: StackFit.expand,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage:
+                                        state.profile?.profilePhoto != null
+                                            ? NetworkImage(
+                                                state.profile!.profilePhoto!)
+                                            : null,
+                                    radius: 50,
+                                    child: state.profile?.profilePhoto != null
+                                        ? null
+                                        : const Icon(Icons.person, size: 50),
+                                  ),
+                                  Positioned(
+                                      bottom: 0,
+                                      right: -25,
+                                      child: RawMaterialButton(
+                                        onPressed: () {
+                                          handleNavigateUploadPicture();
+                                        },
+                                        elevation: 2.0,
+                                        fillColor: const Color(0xFFF5F6F9),
+                                        padding: const EdgeInsets.all(15.0),
+                                        shape: const CircleBorder(),
+                                        child: const Icon(
+                                          Icons.camera_alt_outlined,
+                                          color: Colors.blue,
+                                        ),
+                                      )),
+                                ],
+                              ),
+                            );
+                          }
+
+                          return const SizedBox();
+                        },
+                      )),
                   CustomText(
                     text: '${profile?.firstName} ${profile?.lastName}',
                     style: const TextStyle(
@@ -222,5 +280,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void handleNavigateChangePassword() {
     Navigator.of(context).pushNamed(ChangePasswordScreen.routeName);
+  }
+
+  void handleNavigateUploadPicture() {
+    Navigator.of(context).pushNamed(UpdateProfilePcitureScreen.routeName);
   }
 }
