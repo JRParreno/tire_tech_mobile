@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tire_tech_mobile/features/account/forgot_password/presentation/screen/forgot_password_screen.dart';
 import 'package:tire_tech_mobile/features/account/signup/presentation/screens/sign_up_screen.dart';
 import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
@@ -117,11 +118,12 @@ class LoginForm extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 15.0),
                   child: Column(
                     children: [
-                      const CustomTextLink(
+                      CustomTextLink(
                         text: "Forgot Password?",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: ColorName.placeHolder,
                         ),
+                        onTap: () => handleForgotPassword(context),
                       ),
                       const SizedBox(
                         height: 10,
@@ -148,5 +150,9 @@ class LoginForm extends StatelessWidget {
 
   void handleNavigateSignup(BuildContext context) {
     Navigator.of(context).pushNamed(SignUpScreen.routeName);
+  }
+
+  void handleForgotPassword(BuildContext context) {
+    Navigator.of(context).pushNamed(ForgotPasswordScreen.routeName);
   }
 }

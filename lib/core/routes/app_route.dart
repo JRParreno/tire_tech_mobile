@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tire_tech_mobile/features/account/forgot_password/presentation/screen/forgot_password_screen.dart';
 import 'package:tire_tech_mobile/features/account/login/presentation/screen/login_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/screens/change_password_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/screens/profile_screen.dart';
@@ -60,6 +61,8 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           );
         case UpdateProfilePcitureScreen.routeName:
           return const UpdateProfilePcitureScreen();
+        case ForgotPasswordScreen.routeName:
+          return const ForgotPasswordScreen();
       }
 
       return const Scaffold(
