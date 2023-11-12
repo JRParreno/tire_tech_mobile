@@ -1,15 +1,19 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tire_tech_mobile/core/common_widget/custom_appbar.dart';
 import 'package:tire_tech_mobile/core/location/get_current_location.dart';
 import 'package:tire_tech_mobile/core/permission/app_permission.dart';
+import 'package:tire_tech_mobile/core/utils/bitmapdescriptor.dart';
 import 'package:tire_tech_mobile/features/home/search_services/data/models/service_offer.dart';
 import 'package:tire_tech_mobile/features/home/search_services/presentation/bloc/recent_service_searches/recent_service_searches_bloc.dart';
 import 'package:tire_tech_mobile/features/home/search_services/presentation/body/services_recent_search.dart';
 import 'package:tire_tech_mobile/features/home/search_services/presentation/widget/search_bar_widget.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/screen/search_shops_screen.dart';
+import 'package:tire_tech_mobile/gen/assets.gen.dart';
 
 class SearchServicesScreen extends StatefulWidget {
   static const String routeName = 'home/search-services';
@@ -87,6 +91,10 @@ class _SearchServicesScreenState extends State<SearchServicesScreen> {
 
   Future<void> handleSearch({String? query}) async {
     final locationPermGranted = await AppPermission.locationPermission();
+    final Uint8List markerIcon = await getBytesFromAsset(
+        Assets.icons.shopIcons.outputOnlinepngtools.path, 100);
+
+    final iconMarker = BitmapDescriptor.fromBytes(markerIcon);
 
     if (locationPermGranted) {
       EasyLoading.show();
@@ -103,6 +111,7 @@ class _SearchServicesScreenState extends State<SearchServicesScreen> {
         Navigator.of(context).pushNamed(
           SearchShopsScreen.routeName,
           arguments: SearchShopsArgs(
+            bitmapDescriptor: iconMarker,
             categoryQuery: query ?? queryCtrl.text,
             latitude: currentLocation?.latitude ?? 0,
             longitude: currentLocation?.longitude ?? 0,

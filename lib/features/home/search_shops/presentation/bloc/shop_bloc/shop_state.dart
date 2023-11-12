@@ -9,16 +9,13 @@ abstract class ShopState extends Equatable {
 
 class ShopLoaded extends ShopState {
   final List<Shop> shops;
-  final BitmapDescriptor iconMarker;
 
   const ShopLoaded({
     required this.shops,
-    required this.iconMarker,
   });
 
   @override
   List<Object?> get props => [
         shops,
-        iconMarker,
       ];
 }

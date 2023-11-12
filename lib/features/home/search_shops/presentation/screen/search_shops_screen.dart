@@ -24,6 +24,7 @@ import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
 class SearchShopsArgs {
   const SearchShopsArgs({
+    required this.bitmapDescriptor,
     this.categoryQuery,
     this.serviceQuery,
     this.serviceName,
@@ -36,6 +37,7 @@ class SearchShopsArgs {
   final String? serviceName;
   final double longitude;
   final double latitude;
+  final BitmapDescriptor bitmapDescriptor;
 }
 
 class SearchShopsScreen extends StatefulWidget {
@@ -139,7 +141,6 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
                 if (state is ShopLoaded) {
                   final markers = shopToListMarker(
                     shops: state.shops,
-                    iconMarker: state.iconMarker,
                   );
 
                   final CameraPosition cameraPosition = state.shops.isNotEmpty
@@ -262,12 +263,11 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
 
   List<Marker> shopToListMarker({
     required List<Shop> shops,
-    BitmapDescriptor? iconMarker,
   }) {
     List<Marker> markers = [];
     for (var shop in shops) {
       final tempMarker = Marker(
-        icon: iconMarker ?? BitmapDescriptor.defaultMarker,
+        icon: widget.args.bitmapDescriptor,
         markerId: MarkerId(shop.pk.toString()),
         position: LatLng(shop.latitude, shop.longitude),
         infoWindow: InfoWindow(
