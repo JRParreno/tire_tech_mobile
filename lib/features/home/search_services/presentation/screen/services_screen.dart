@@ -73,7 +73,9 @@ class _ServicesScreenState extends State<ServicesScreen> {
                       Vspace.sm,
                       if (services != null && filterServices != null) ...[
                         SelectServiceBody(
-                          handleSearchService: (value) => handleSearchService,
+                          handleSearchService: (value) {
+                            handleSearchService(value);
+                          },
                           services: filterServices!,
                         ),
                       ] else ...[
@@ -108,32 +110,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
       services = tempList;
       filterServices = tempList;
     });
-  }
-
-  Future<void> handleSearch() async {
-    final locationPermGranted = await AppPermission.locationPermission();
-
-    if (locationPermGranted) {
-      EasyLoading.show();
-
-      final currentLocation = await getCurrentLocation();
-
-      EasyLoading.dismiss();
-
-      Future.delayed(const Duration(milliseconds: 500), () {
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed(
-          SearchShopsScreen.routeName,
-          arguments: SearchShopsArgs(
-            categoryQuery: queryCtrl.text,
-            latitude: currentLocation?.latitude ?? 0,
-            longitude: currentLocation?.longitude ?? 0,
-          ),
-        );
-      });
-    } else {
-      AppSettings.openAppSettings();
-    }
   }
 
   Future<void> handleSearchService(ServiceOffer serviceOffer) async {

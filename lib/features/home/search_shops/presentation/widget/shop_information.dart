@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop.dart';
+import 'package:tire_tech_mobile/gen/assets.gen.dart';
+import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
 class ShopInformation extends StatelessWidget {
   const ShopInformation({super.key, required this.shop});
@@ -15,17 +17,23 @@ class ShopInformation extends StatelessWidget {
         horizontal: 10,
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            width: 60,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Assets.icons.shopIcons.repairingService.image(
+              width: 30,
+              height: 30,
+            ),
           ),
           Flexible(
             fit: FlexFit.tight,
             child: Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color(0xFFE6E6E6)),
+                borderRadius: BorderRadius.circular(10),
+                color: ColorName.primary,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [

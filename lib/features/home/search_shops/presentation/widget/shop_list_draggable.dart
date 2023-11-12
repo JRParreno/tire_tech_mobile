@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop.dart';
+import 'package:tire_tech_mobile/gen/assets.gen.dart';
+import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
 class ShopListDraggable extends StatelessWidget {
   const ShopListDraggable({
@@ -17,7 +19,7 @@ class ShopListDraggable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: .35,
+      initialChildSize: .4,
       expand: false,
       builder: (context, scrollController) {
         return SingleChildScrollView(
@@ -85,15 +87,8 @@ class ShopListDraggable extends StatelessWidget {
   }
 
   Widget header(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.black,
-          ),
-        ),
-      ),
-      height: MediaQuery.of(context).size.height * 0.06,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.10,
       child: Center(
         child: CustomText(
           text: title,
@@ -117,20 +112,17 @@ class ShopListDraggable extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Icon(
-                Icons.location_on_outlined,
-                size: 30,
-                color: Colors.red,
-              ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Assets.icons.shopIcons.outputOnlinepngtools
+                  .image(height: 55, width: 55),
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xFFE6E6E6)),
+                    borderRadius: BorderRadius.circular(20),
+                    color: ColorName.primary),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

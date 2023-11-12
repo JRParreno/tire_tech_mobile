@@ -26,7 +26,7 @@ class ShopRating extends StatelessWidget {
         color: Colors.amber,
       ),
       onRatingUpdate: (rating) {},
-      itemSize: 15,
+      itemSize: 20,
     );
   }
 }

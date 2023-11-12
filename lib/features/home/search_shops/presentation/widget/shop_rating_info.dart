@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
-import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop.dart';
 import 'package:tire_tech_mobile/gen/assets.gen.dart';
 import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
-class ShopAddress extends StatelessWidget {
-  const ShopAddress({super.key, required this.shop});
+class ShopRatingInfo extends StatelessWidget {
+  const ShopRatingInfo(
+      {super.key, required this.rate, required this.totalReviews});
 
-  final Shop shop;
+  final double rate;
+  final int totalReviews;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(
-        10,
+      padding: const EdgeInsets.only(
+        top: 10,
+        left: 10,
+        right: 10,
       ),
       child: Row(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Assets.icons.shopIcons.direction.image(
+            child: Assets.icons.shopIcons.star.image(
               width: 30,
               height: 30,
             ),
@@ -34,7 +37,8 @@ class ShopAddress extends StatelessWidget {
                 color: ColorName.primary,
               ),
               child: CustomText(
-                text: shop.addressName,
+                text:
+                    'Rating ${rate.toStringAsFixed(1)} ($totalReviews reviews)',
                 style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,

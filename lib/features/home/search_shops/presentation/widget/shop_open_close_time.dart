@@ -1,28 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
-import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop.dart';
 import 'package:tire_tech_mobile/gen/assets.gen.dart';
 import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
-class ShopAddress extends StatelessWidget {
-  const ShopAddress({super.key, required this.shop});
+class ShopOpenCloseTime extends StatelessWidget {
+  const ShopOpenCloseTime({
+    super.key,
+    required this.openTime,
+    required this.closeTime,
+  });
 
-  final Shop shop;
+  final String openTime;
+  final String closeTime;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(
-        10,
+      padding: const EdgeInsets.only(
+        top: 10,
+        left: 10,
+        right: 10,
       ),
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Assets.icons.shopIcons.direction.image(
-              width: 30,
-              height: 30,
+            padding: const EdgeInsets.symmetric(horizontal: 17),
+            child: Assets.icons.shopIcons.time.image(
+              width: 25,
+              height: 25,
             ),
           ),
           Flexible(
@@ -34,7 +41,8 @@ class ShopAddress extends StatelessWidget {
                 color: ColorName.primary,
               ),
               child: CustomText(
-                text: shop.addressName,
+                text:
+                    '${formattedTime(openTime)} - ${formattedTime(closeTime)}',
                 style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -46,5 +54,13 @@ class ShopAddress extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formattedTime(String value) {
+    final String tempDate = '2023-11-12 $value';
+
+    final dateFormat = DateFormat('hh:mm a');
+
+    return dateFormat.format(DateTime.parse(tempDate));
   }
 }

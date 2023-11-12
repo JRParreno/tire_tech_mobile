@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/data/models/shop.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_rating.dart';
+import 'package:tire_tech_mobile/gen/assets.gen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ShopHeader extends StatelessWidget {
@@ -34,19 +35,18 @@ class ShopHeader extends StatelessWidget {
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.only(left: 25),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Row(
                   children: [
-                    Row(
+                    Assets.icons.shopIcons.carService
+                        .image(height: 30, width: 30),
+                    const SizedBox(
+                      height: 5,
+                      width: 5,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.store_outlined,
-                          size: 30,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
                         CustomText(
                           text: shop.shopName,
                           style: const TextStyle(
@@ -54,10 +54,12 @@ class ShopHeader extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ShopRating(rate: rate),
                       ],
                     ),
-                    const SizedBox(height: 5),
-                    ShopRating(rate: rate),
                   ],
                 ),
               ),

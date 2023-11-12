@@ -24,9 +24,11 @@ class SelectServiceBody extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: CustomBtn(
-              onTap: () => handleSearchService(
-                serviceOffer,
-              ),
+              onTap: () {
+                handleSearchService(
+                  serviceOffer,
+                );
+              },
               label: serviceOffer.serviceName,
               style: const TextStyle(
                 fontSize: 17,

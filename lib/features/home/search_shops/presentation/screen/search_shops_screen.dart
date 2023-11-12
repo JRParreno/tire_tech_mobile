@@ -16,6 +16,8 @@ import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_header.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_information.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_list_draggable.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_open_close_time.dart';
+import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_rating_info.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_review_btn.dart';
 import 'package:tire_tech_mobile/features/menu/presentation/screen/menu_screen.dart';
 import 'package:tire_tech_mobile/gen/colors.gen.dart';
@@ -91,7 +93,7 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
           }
           return Scaffold(
             appBar: buildAppBar(
-              backgroundColor: ColorName.primary.withOpacity(.50),
+              backgroundColor: Colors.transparent,
               context: context,
               titleWidget: Padding(
                 padding: const EdgeInsets.only(left: 20),
@@ -118,7 +120,7 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
                       radius: 20,
                       child: Icon(
                         Icons.menu,
-                        color: ColorName.primary,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -135,7 +137,10 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
                 }
 
                 if (state is ShopLoaded) {
-                  final markers = shopToListMarker(state.shops);
+                  final markers = shopToListMarker(
+                    shops: state.shops,
+                    iconMarker: state.iconMarker,
+                  );
 
                   final CameraPosition cameraPosition = state.shops.isNotEmpty
                       ? CameraPosition(
@@ -255,11 +260,14 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
     ]);
   }
 
-  List<Marker> shopToListMarker(List<Shop> shops) {
+  List<Marker> shopToListMarker({
+    required List<Shop> shops,
+    BitmapDescriptor? iconMarker,
+  }) {
     List<Marker> markers = [];
-
     for (var shop in shops) {
       final tempMarker = Marker(
+        icon: iconMarker ?? BitmapDescriptor.defaultMarker,
         markerId: MarkerId(shop.pk.toString()),
         position: LatLng(shop.latitude, shop.longitude),
         infoWindow: InfoWindow(
@@ -322,6 +330,14 @@ class _SearchShopsScreenState extends State<SearchShopsScreen> {
                             ShopHeader(
                               shop: shop,
                               rate: state.shopRateUser.rate,
+                            ),
+                            ShopRatingInfo(
+                              rate: state.shopRateUser.rate,
+                              totalReviews: state.shopReviews.length,
+                            ),
+                            ShopOpenCloseTime(
+                              closeTime: shop.closeTime,
+                              openTime: shop.openTime,
                             ),
                             ShopAddress(shop: shop),
                             ShopInformation(shop: shop),

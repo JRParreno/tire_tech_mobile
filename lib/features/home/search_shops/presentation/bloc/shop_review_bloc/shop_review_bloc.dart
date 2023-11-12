@@ -26,9 +26,16 @@ class ShopReviewBloc extends Bloc<ShopReviewEvent, ShopReviewState> {
     try {
       final response =
           await _shopReviewRepository.fetchTotalRateShopReview(event.pk);
+      final reviews = await _shopReviewRepository.fetchShopReviewList(
+        pk: event.pk,
+        page: 1,
+      );
       return emit(
         ShopReviewLoaded(
           shopRateUser: response,
+          count: reviews.count,
+          shopReviews: reviews.shopReviews,
+          hasNext: reviews.hasNextPage,
         ),
       );
     } catch (err) {
