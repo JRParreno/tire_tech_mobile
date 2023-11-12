@@ -9,6 +9,7 @@ import 'package:tire_tech_mobile/features/account/profile/presentation/screens/c
 import 'package:tire_tech_mobile/features/account/profile/presentation/screens/update_account_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/screens/update_profile_picture_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/widgets/review_report/review_report_form.dart';
+import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String routeName = '/profile';
@@ -42,32 +43,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final profile = ProfileUtils.userProfile(context);
 
     return Scaffold(
+      backgroundColor: ColorName.primary,
       appBar: buildAppBar(
         context: context,
-        title: 'Profile',
-        backgroundColor: const Color(0xff38b6ff).withOpacity(1),
+        title: '',
+        backgroundColor: ColorName.primary,
       ),
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/background.png"),
-              fit: BoxFit.cover),
-        ),
-        child: Container(
+        child: Padding(
           padding: const EdgeInsets.all(25),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: const Alignment(1, 1),
-              colors: <Color>[
-                const Color(0xff38b6ff).withOpacity(1),
-                const Color(0xff38b6ff).withOpacity(0.25),
-              ], // Gradient from https://learnui.design/tools/gradient-generator.html
-              tileMode: TileMode.mirror,
-            ),
-          ),
           child: SingleChildScrollView(
             child: Container(
               decoration: const BoxDecoration(

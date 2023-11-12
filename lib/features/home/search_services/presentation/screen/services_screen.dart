@@ -46,50 +46,52 @@ class _ServicesScreenState extends State<ServicesScreen> {
       child: Scaffold(
         backgroundColor: const Color(0xFFF6F6F6),
         body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const ServicesAppBar(),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CarouselBody(
-                        homeCarouselBloc: homeCarouselBloc,
-                        handleOnChangedCarousel: handleOnChangedCarousel,
-                      ),
-                      Vspace.md,
-                      const CustomText(
-                        text: "Select Preferred Service",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+          child: SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const ServicesAppBar(),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CarouselBody(
+                          homeCarouselBloc: homeCarouselBloc,
+                          handleOnChangedCarousel: handleOnChangedCarousel,
                         ),
-                      ),
-                      Vspace.sm,
-                      if (services != null && filterServices != null) ...[
-                        SelectServiceBody(
-                          handleSearchService: (value) {
-                            handleSearchService(value);
-                          },
-                          services: filterServices!,
-                        ),
-                      ] else ...[
-                        const Expanded(
-                          child: Center(
-                            child: CircularProgressIndicator(),
+                        Vspace.md,
+                        const CustomText(
+                          text: "Select Preferred Service",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
-                        )
+                        ),
+                        Vspace.sm,
+                        if (services != null && filterServices != null) ...[
+                          SelectServiceBody(
+                            handleSearchService: (value) {
+                              handleSearchService(value);
+                            },
+                            services: filterServices!,
+                          ),
+                        ] else ...[
+                          const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        ],
                       ],
-                    ],
-                  ),
-                ),
-              )
-            ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       ),

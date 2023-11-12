@@ -34,11 +34,12 @@ class ServicesAppBar extends StatelessWidget {
               backgroundColor: Colors.white, // <-- Button color
             ),
             child: const Center(
-                child: Icon(
-              Icons.search,
-              color: ColorName.primary,
-              size: 20,
-            )),
+              child: Icon(
+                Icons.search,
+                color: ColorName.primary,
+                size: 20,
+              ),
+            ),
           )
         ],
       ),

@@ -18,48 +18,51 @@ class CarouselBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCarouselBloc, HomeCarouselState>(
-      bloc: homeCarouselBloc,
-      builder: (context, state) {
-        if (state is InitialState || state is LoadingState) {
-          return Column(
-            children: [
-              HomeCarouselLoading(
-                onChanged: handleOnChangedCarousel,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const HomeCarouselListScrollIndicators(
-                carousels: [],
-                isLoading: true,
-                currentCarousel: 0,
-              ),
-            ],
-          );
-        }
+    return SizedBox(
+      width: double.infinity,
+      child: BlocBuilder<HomeCarouselBloc, HomeCarouselState>(
+        bloc: homeCarouselBloc,
+        builder: (context, state) {
+          if (state is InitialState || state is LoadingState) {
+            return Column(
+              children: [
+                HomeCarouselLoading(
+                  onChanged: handleOnChangedCarousel,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const HomeCarouselListScrollIndicators(
+                  carousels: [],
+                  isLoading: true,
+                  currentCarousel: 0,
+                ),
+              ],
+            );
+          }
 
-        if (state is HomeCarouselLoaded) {
-          return Column(
-            children: [
-              HomeCarousel(
-                carousels: state.carousels,
-                onChanged: handleOnChangedCarousel,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              HomeCarouselListScrollIndicators(
-                carousels: state.carousels,
-                isLoading: false,
-                currentCarousel: state.index,
-              ),
-            ],
-          );
-        }
+          if (state is HomeCarouselLoaded) {
+            return Column(
+              children: [
+                HomeCarousel(
+                  carousels: state.carousels,
+                  onChanged: handleOnChangedCarousel,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                HomeCarouselListScrollIndicators(
+                  carousels: state.carousels,
+                  isLoading: false,
+                  currentCarousel: state.index,
+                ),
+              ],
+            );
+          }
 
-        return const SizedBox();
-      },
+          return const SizedBox();
+        },
+      ),
     );
   }
 }

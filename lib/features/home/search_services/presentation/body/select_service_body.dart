@@ -15,32 +15,31 @@ class SelectServiceBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: services.length,
-        itemBuilder: (context, index) {
-          final serviceOffer = services[index];
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: CustomBtn(
-              onTap: () {
-                handleSearchService(
-                  serviceOffer,
-                );
-              },
-              label: serviceOffer.serviceName,
-              style: const TextStyle(
-                fontSize: 17,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-              radius: 15,
-              alignment: Alignment.centerLeft,
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: services.length,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        final serviceOffer = services[index];
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: CustomBtn(
+            onTap: () {
+              handleSearchService(
+                serviceOffer,
+              );
+            },
+            label: serviceOffer.serviceName,
+            style: const TextStyle(
+              fontSize: 17,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
-          );
-        },
-      ),
+            radius: 15,
+            alignment: Alignment.centerLeft,
+          ),
+        );
+      },
     );
   }
 }
