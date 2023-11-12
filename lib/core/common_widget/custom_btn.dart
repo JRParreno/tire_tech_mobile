@@ -13,6 +13,8 @@ class CustomBtn extends StatelessWidget {
   final bool unsetWidth;
   final bool unsetHeight;
   final Widget? icon;
+  final double? radius;
+  final Alignment? alignment;
 
   const CustomBtn({
     super.key,
@@ -26,6 +28,8 @@ class CustomBtn extends StatelessWidget {
     this.unsetHeight = false,
     this.unsetWidth = false,
     this.icon,
+    this.radius,
+    this.alignment,
   });
 
   @override
@@ -42,7 +46,7 @@ class CustomBtn extends StatelessWidget {
                     backgroundColor: backgroundColor ?? ColorName.primary,
                     shape: RoundedRectangleBorder(
                         // border radius
-                        borderRadius: BorderRadius.circular(20)),
+                        borderRadius: BorderRadius.circular(radius ?? 5)),
                   ),
               label: CustomText(
                 text: label,
@@ -54,10 +58,11 @@ class CustomBtn extends StatelessWidget {
               onPressed: onTap,
               style: btnStyle ??
                   ElevatedButton.styleFrom(
+                    alignment: alignment ?? Alignment.center,
                     backgroundColor: backgroundColor ?? ColorName.primary,
                     shape: RoundedRectangleBorder(
                         // border radius
-                        borderRadius: BorderRadius.circular(20)),
+                        borderRadius: BorderRadius.circular(radius ?? 5)),
                   ),
               child: CustomText(
                 text: label,

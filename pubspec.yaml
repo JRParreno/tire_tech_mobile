@@ -61,6 +61,8 @@ dependencies:
   speech_balloon: ^0.0.4
   image_picker: ^1.0.4
   email_validator: ^2.1.17
+  carousel_slider: ^4.2.1
+  gap: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +92,7 @@ flutter:
     - assets/color/
     - assets/svg/
     - assets/icons/
+    - assets/images/carousel/
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)

@@ -112,25 +112,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       );
                     }),
                     focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(7),
                       borderSide: const BorderSide(
                         color: ColorName.error,
                       ),
                     ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(7),
                       borderSide: const BorderSide(
                         color: ColorName.border,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(7),
                       borderSide: const BorderSide(
                         color: ColorName.placeHolder,
                       ),
                     ),
                     errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(7),
                       borderSide: const BorderSide(
                         color: ColorName.error,
                       ),

@@ -6,7 +6,8 @@ import 'package:tire_tech_mobile/features/account/profile/presentation/screens/p
 import 'package:tire_tech_mobile/features/account/profile/presentation/screens/update_account_screen.dart';
 import 'package:tire_tech_mobile/features/account/profile/presentation/screens/update_profile_picture_screen.dart';
 import 'package:tire_tech_mobile/features/account/signup/presentation/screens/sign_up_screen.dart';
-import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
+import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/services_screen.dart';
+import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/services_search_screen.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/screen/search_shops_screen.dart';
 import 'package:tire_tech_mobile/features/home/search_shops/presentation/widget/shop_image_gallery.dart';
 import 'package:tire_tech_mobile/features/menu/presentation/screen/menu_screen.dart';
@@ -24,6 +25,8 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           return const SignUpScreen();
         case SearchServicesScreen.routeName:
           return const SearchServicesScreen();
+        case ServicesScreen.routeName:
+          return const ServicesScreen();
         case SearchShopsScreen.routeName:
           final args = settings.arguments! as SearchShopsArgs;
           return SearchShopsScreen(

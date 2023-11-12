@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tire_tech_mobile/core/bloc/profile/profile_bloc.dart';
-import 'package:tire_tech_mobile/core/common_widget/common_dialog.dart';
+import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/core/config/app_constant.dart';
 import 'package:tire_tech_mobile/core/local_storage/local_storage.dart';
 import 'package:tire_tech_mobile/features/account/login/data/repositories/login_repository_impl.dart';
 import 'package:tire_tech_mobile/features/account/login/presentation/widgets/login_form.dart';
 import 'package:tire_tech_mobile/features/account/profile/data/models/profile.dart';
 import 'package:tire_tech_mobile/features/account/profile/data/repositories/profile_repository_impl.dart';
-import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
+import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/services_screen.dart';
 import 'package:tire_tech_mobile/gen/assets.gen.dart';
 import 'package:tire_tech_mobile/gen/colors.gen.dart';
 
@@ -57,10 +57,27 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: height * .40,
               child: Center(
-                child: Assets.images.icon.image(
-                  height: 170,
-                  width: 170,
-                  color: Colors.white,
+                child: Stack(
+                  children: [
+                    Assets.images.icon.image(
+                      height: 170,
+                      width: 170,
+                      color: Colors.white,
+                    ),
+                    const Positioned.fill(
+                      bottom: 20,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: CustomText(
+                          text: "Tire-TECH",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -124,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       Future.delayed(const Duration(milliseconds: 500), () {
         Navigator.of(context).pushNamedAndRemoveUntil(
-          SearchServicesScreen.routeName,
+          ServicesScreen.routeName,
           (route) => false,
         );
       });

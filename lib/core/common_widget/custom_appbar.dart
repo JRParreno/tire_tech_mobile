@@ -11,6 +11,7 @@ PreferredSizeWidget buildAppBar({
   List<Widget>? actions,
   Color? backgroundColor,
   Widget? titleWidget,
+  double? leadingWidth,
 }) {
   return AppBar(
     toolbarHeight: kToolbarHeight,
@@ -19,6 +20,7 @@ PreferredSizeWidget buildAppBar({
     centerTitle: titleWidget != null ? false : true,
     elevation: 0,
     automaticallyImplyLeading: false,
+    leadingWidth: leadingWidth,
     leading: !showBackBtn
         ? leading ??
             IconButton(

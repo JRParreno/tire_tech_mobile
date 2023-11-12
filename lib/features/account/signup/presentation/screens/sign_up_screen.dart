@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tire_tech_mobile/core/bloc/profile/profile_bloc.dart';
-import 'package:tire_tech_mobile/core/common_widget/common_dialog.dart';
+import 'package:tire_tech_mobile/core/common_widget/common_widget.dart';
 import 'package:tire_tech_mobile/core/common_widget/custom_appbar.dart';
 import 'package:tire_tech_mobile/core/config/app_constant.dart';
 import 'package:tire_tech_mobile/core/local_storage/local_storage.dart';
@@ -12,8 +12,7 @@ import 'package:tire_tech_mobile/features/account/profile/data/repositories/prof
 import 'package:tire_tech_mobile/features/account/signup/data/models/signup.dart';
 import 'package:tire_tech_mobile/features/account/signup/data/repositories/signup_repository_impl.dart';
 import 'package:tire_tech_mobile/features/account/signup/presentation/widgets/signup_form.dart';
-import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/search_services_screen.dart';
-import 'package:tire_tech_mobile/gen/colors.gen.dart';
+import 'package:tire_tech_mobile/features/home/search_services/presentation/screen/services_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String routeName = '/signup';
@@ -47,55 +46,72 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context: context),
-      body: Container(
-        color: ColorName.primary,
-        padding: const EdgeInsets.only(top: 10),
-        child: Container(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            bottom: 20,
-            top: 50,
-          ),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius:
-                BorderRadius.only(topLeft: Radius.elliptical(100, 80)),
-          ),
-          child: SingleChildScrollView(
-            child: SignupForm(
-              onSelectGender: (value) {
-                genderCtrl.value = TextEditingController.fromValue(
-                        TextEditingValue(text: value))
-                    .value;
-              },
-              genderCtrl: genderCtrl,
-              firstNameCtrl: firstNameCtrl,
-              lastNameCtrl: lastNameCtrl,
-              emailCtrl: emailSignupCtrl,
-              passwordCtrl: passwordSignupCtrl,
-              completeAddressCtrl: completeAddressCtrl,
-              confirmPasswordCtrl: confirmPasswordCtrl,
-              mobileNoCtrl: mobileNoCtrl,
-              formKey: signupFormKey,
-              onSubmit: handleSignup,
-              confirmPasswordVisible: _passwordConfirmVisible,
-              confirmSuffixIcon: GestureDetector(
-                onTap: handleOnConfirmChangePassVisible,
-                child: Icon(!_passwordConfirmVisible
-                    ? Icons.visibility
-                    : Icons.visibility_off),
+      appBar: buildAppBar(context: context, title: ''),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 20,
               ),
-              passwordVisible: _passwordVisible,
-              suffixIcon: GestureDetector(
-                onTap: handleOnChangePassVisible,
-                child: Icon(!_passwordVisible
-                    ? Icons.visibility
-                    : Icons.visibility_off),
+              child: Column(
+                children: [
+                  CustomText(
+                    text: 'Create new',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  CustomText(
+                    text: 'Account',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
+            Container(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                bottom: 20,
+              ),
+              child: SignupForm(
+                onSelectGender: (value) {
+                  genderCtrl.value = TextEditingController.fromValue(
+                          TextEditingValue(text: value))
+                      .value;
+                },
+                genderCtrl: genderCtrl,
+                firstNameCtrl: firstNameCtrl,
+                lastNameCtrl: lastNameCtrl,
+                emailCtrl: emailSignupCtrl,
+                passwordCtrl: passwordSignupCtrl,
+                completeAddressCtrl: completeAddressCtrl,
+                confirmPasswordCtrl: confirmPasswordCtrl,
+                mobileNoCtrl: mobileNoCtrl,
+                formKey: signupFormKey,
+                onSubmit: handleSignup,
+                confirmPasswordVisible: _passwordConfirmVisible,
+                confirmSuffixIcon: GestureDetector(
+                  onTap: handleOnConfirmChangePassVisible,
+                  child: Icon(!_passwordConfirmVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                ),
+                passwordVisible: _passwordVisible,
+                suffixIcon: GestureDetector(
+                  onTap: handleOnChangePassVisible,
+                  child: Icon(!_passwordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -196,7 +212,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       Future.delayed(const Duration(milliseconds: 500), () {
         Navigator.of(context).pushNamed(
-          SearchServicesScreen.routeName,
+          ServicesScreen.routeName,
         );
       });
     }).catchError((onError) {
